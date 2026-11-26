@@ -4,6 +4,7 @@ VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo dev)
 
 build:
 	go build -trimpath -ldflags "-s -w -X main.version=$(VERSION)" -o bin/ammit ./cmd/ammit
+	if [ -d cmd/ammit-judge ]; then go build -trimpath -ldflags "-s -w" -o bin/ammit-judge ./cmd/ammit-judge; fi
 
 test:
 	go test -race ./...
