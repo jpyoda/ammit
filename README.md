@@ -104,7 +104,9 @@ collect -> normalize -> extract references -> analyzers (parallel) -> correlate 
   once for all of them. Inspect it with `ammit scan --dump-ir`.
 * **Analyzers**: structural checks (evasion, opacity, limits), [JSON pattern rules](docs/rules.md),
   reference checks, and out-of-process [plugins](docs/plugins.md) in any language over JSON-RPC.
-* **Verdict**: `block` (high or critical), `review` (anything else, or an incomplete scan), `no-findings`.
+* **Verdict**: `block` (high or critical), `review` (medium, or an incomplete scan), `notes` (only low or
+  info findings), `no-findings`. Each finding says where it sits (code, instructions, docs, tests,
+  comments); wording-only rules are demoted one step in docs, tests and comments, never in code or instructions.
 
 See [docs/architecture.md](docs/architecture.md) for the full design, including the planned sandbox.
 
@@ -115,6 +117,7 @@ ammit is early. Milestone 1 (this release) is the static core.
 - [x] Core CLI, IR, normalizer, rule engine, SARIF/JSON output, GitHub Action
 - [x] Bypass regression suite; laptop inventory (`ammit discover`)
 - [x] Benchmark harness and first baseline ([scores](docs/scores.md))
+- [x] False-positive tuning: 9.6% → 2.1% of benign add-ons blocked
 - [ ] LLM judge plugin, hardened against prompt injection in the scanned content
 - [ ] Multi-language dataflow (tree-sitter): shell, JavaScript/TypeScript, Go
 - [ ] Repository context: history, author and fit, to cut false positives

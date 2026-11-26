@@ -48,7 +48,7 @@ def markdown(result: dict) -> str:
             lines.append(f"| {value} | {_pct(f['recall'])} | {_pct(f['false_positive_rate'])} | {_pct(b['recall'])} |")
 
     if result.get("false_positive_rules"):
-        lines += ["", "### Rules behind false positives", "", "| Rule | Benign samples flagged |", "| --- | --- |"]
+        lines += ["", "### Rules present in flagged benign samples", "", "| Rule | Benign samples flagged |", "| --- | --- |"]
         for rule, n in result["false_positive_rules"][:15]:
             lines.append(f"| {rule} | {n} |")
     if result.get("errors"):

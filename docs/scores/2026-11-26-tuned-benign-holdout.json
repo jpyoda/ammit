@@ -1,0 +1,1537 @@
+{
+  "created_at": "2026-11-26T15:36:36+00:00",
+  "ammit": {
+    "version": "ammit dev",
+    "rules_sha256": "764f59d3c769b600efd3baa7fcc5217091767309ef08600b3445cbc6e8181249"
+  },
+  "scan_args": "",
+  "sample_fraction": 1.0,
+  "milestone": true,
+  "datasets": [
+    {
+      "id": "benign:anthropics/skills",
+      "revision": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+      "samples": 5,
+      "population_sha256": "8d8f2c2b6f209eae566124efde9fcc28b4a58e099bc87198d61ad42f895e10cd",
+      "selection": {
+        "split": "benign",
+        "partition": "holdout"
+      }
+    },
+    {
+      "id": "benign:openai/skills",
+      "revision": "49f948faa9258a0c61caceaf225e179651397431",
+      "samples": 9,
+      "population_sha256": "698c34cb36fec7d8a71099e5faf3577bfa648e9064798c2ec1a894f1a8cae931",
+      "selection": {
+        "split": "benign",
+        "partition": "holdout"
+      }
+    },
+    {
+      "id": "benign:NVIDIA/skills",
+      "revision": "f9e407149dc68eedc6dc3b51f39db1217d459267",
+      "samples": 188,
+      "population_sha256": "efcef9809ade77754bff335ea4c473894c2ad8cc732a290e883f74579d2eb962",
+      "selection": {
+        "split": "benign",
+        "partition": "holdout"
+      }
+    },
+    {
+      "id": "benign:vercel-labs/agent-skills",
+      "revision": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+      "samples": 2,
+      "population_sha256": "ea0a32652de758904a3da65c0542af966e7bf351705e1e4fe4c1ee07d817aade",
+      "selection": {
+        "split": "benign",
+        "partition": "holdout"
+      }
+    },
+    {
+      "id": "benign:github/awesome-copilot",
+      "revision": "93fc8b9ee3ef56b9b5e7261e6ce92d314cb2c1cf",
+      "samples": 273,
+      "population_sha256": "cd03c65b905a8a820d9d593d730d0fc0060de073ff5020e468861ba423e2f811",
+      "selection": {
+        "split": "benign",
+        "partition": "holdout"
+      }
+    },
+    {
+      "id": "benign:microsoft/skills",
+      "revision": "47eb3888eb42aef074fcb617931bf6e5934e45d9",
+      "samples": 68,
+      "population_sha256": "41654a109872d1fd10f45cd7fa67299a05d17188eb8e8bc373c560e3b86780b6",
+      "selection": {
+        "split": "benign",
+        "partition": "holdout"
+      }
+    },
+    {
+      "id": "benign:huggingface/skills",
+      "revision": "58cdf1745d1d51748e38d1520cdc25898579c22f",
+      "samples": 10,
+      "population_sha256": "847424d003a1ac8da128c29f96f5e9daf2812a0b07d22b460c12580a59519651",
+      "selection": {
+        "split": "benign",
+        "partition": "holdout"
+      }
+    }
+  ],
+  "scorecard": {
+    "overall": {
+      "flagged": {
+        "tp": 0,
+        "fp": 35,
+        "tn": 520,
+        "fn": 0,
+        "recall": {
+          "hits": 0,
+          "total": 0,
+          "value": null,
+          "ci95": [
+            0.0,
+            1.0
+          ]
+        },
+        "precision": {
+          "hits": 0,
+          "total": 35,
+          "value": 0.0,
+          "ci95": [
+            6.938893903907228e-18,
+            0.09890099232440402
+          ]
+        },
+        "false_positive_rate": {
+          "hits": 35,
+          "total": 555,
+          "value": 0.06306306306306306,
+          "ci95": [
+            0.04569065981860604,
+            0.08644244815895791
+          ]
+        },
+        "f1": null
+      },
+      "blocked": {
+        "tp": 0,
+        "fp": 13,
+        "tn": 542,
+        "fn": 0,
+        "recall": {
+          "hits": 0,
+          "total": 0,
+          "value": null,
+          "ci95": [
+            0.0,
+            1.0
+          ]
+        },
+        "precision": {
+          "hits": 0,
+          "total": 13,
+          "value": 0.0,
+          "ci95": [
+            0.0,
+            0.22809537235419838
+          ]
+        },
+        "false_positive_rate": {
+          "hits": 13,
+          "total": 555,
+          "value": 0.023423423423423424,
+          "ci95": [
+            0.013738978126853917,
+            0.039659813873416855
+          ]
+        },
+        "f1": null
+      }
+    },
+    "groups": {
+      "dataset": {
+        "benign:NVIDIA/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 14,
+            "tn": 174,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 14,
+              "value": 0.0,
+              "ci95": [
+                1.3877787807814457e-17,
+                0.2153108027376358
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 14,
+              "total": 188,
+              "value": 0.07446808510638298,
+              "ci95": [
+                0.0448744161663602,
+                0.12110356907433248
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 3,
+            "tn": 185,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 3,
+              "value": 0.0,
+              "ci95": [
+                5.551115123125783e-17,
+                0.5614970317550454
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 3,
+              "total": 188,
+              "value": 0.015957446808510637,
+              "ci95": [
+                0.005441558415519205,
+                0.04585839979576874
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:anthropics/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 5,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 0,
+              "total": 5,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.43448246478317476
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 5,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 0,
+              "total": 5,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.43448246478317476
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:github/awesome-copilot": {
+          "flagged": {
+            "tp": 0,
+            "fp": 13,
+            "tn": 260,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 13,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.22809537235419838
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 13,
+              "total": 273,
+              "value": 0.047619047619047616,
+              "ci95": [
+                0.028037023488583016,
+                0.0797555699611646
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 4,
+            "tn": 269,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 4,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.4898908364545973
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 4,
+              "total": 273,
+              "value": 0.014652014652014652,
+              "ci95": [
+                0.005712246187196249,
+                0.0370611840321686
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:huggingface/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 2,
+            "tn": 8,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 2,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.6576197724933469
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 2,
+              "total": 10,
+              "value": 0.2,
+              "ci95": [
+                0.05668215145437519,
+                0.5098375284633583
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 2,
+            "tn": 8,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 2,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.6576197724933469
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 2,
+              "total": 10,
+              "value": 0.2,
+              "ci95": [
+                0.05668215145437519,
+                0.5098375284633583
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:microsoft/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 3,
+            "tn": 65,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 3,
+              "value": 0.0,
+              "ci95": [
+                5.551115123125783e-17,
+                0.5614970317550454
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 3,
+              "total": 68,
+              "value": 0.04411764705882353,
+              "ci95": [
+                0.01511661970804156,
+                0.12187195182496394
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 2,
+            "tn": 66,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 2,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.6576197724933469
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 2,
+              "total": 68,
+              "value": 0.029411764705882353,
+              "ci95": [
+                0.008103179543129883,
+                0.10104631365223063
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:openai/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 3,
+            "tn": 6,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 3,
+              "value": 0.0,
+              "ci95": [
+                5.551115123125783e-17,
+                0.5614970317550454
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 3,
+              "total": 9,
+              "value": 0.3333333333333333,
+              "ci95": [
+                0.1205838183869109,
+                0.6457978644196036
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 2,
+            "tn": 7,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 2,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.6576197724933469
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 2,
+              "total": 9,
+              "value": 0.2222222222222222,
+              "ci95": [
+                0.06322510711784671,
+                0.5474110308930111
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:vercel-labs/agent-skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 0,
+              "total": 2,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.6576197724933469
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 0,
+              "total": 2,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.6576197724933469
+              ]
+            },
+            "f1": null
+          }
+        }
+      },
+      "provenance": {
+        "published": {
+          "flagged": {
+            "tp": 0,
+            "fp": 35,
+            "tn": 520,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 35,
+              "value": 0.0,
+              "ci95": [
+                6.938893903907228e-18,
+                0.09890099232440402
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 35,
+              "total": 555,
+              "value": 0.06306306306306306,
+              "ci95": [
+                0.04569065981860604,
+                0.08644244815895791
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 13,
+            "tn": 542,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 13,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.22809537235419838
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 13,
+              "total": 555,
+              "value": 0.023423423423423424,
+              "ci95": [
+                0.013738978126853917,
+                0.039659813873416855
+              ]
+            },
+            "f1": null
+          }
+        }
+      },
+      "source": {
+        "benign:NVIDIA/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 14,
+            "tn": 174,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 14,
+              "value": 0.0,
+              "ci95": [
+                1.3877787807814457e-17,
+                0.2153108027376358
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 14,
+              "total": 188,
+              "value": 0.07446808510638298,
+              "ci95": [
+                0.0448744161663602,
+                0.12110356907433248
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 3,
+            "tn": 185,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 3,
+              "value": 0.0,
+              "ci95": [
+                5.551115123125783e-17,
+                0.5614970317550454
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 3,
+              "total": 188,
+              "value": 0.015957446808510637,
+              "ci95": [
+                0.005441558415519205,
+                0.04585839979576874
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:anthropics/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 5,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 0,
+              "total": 5,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.43448246478317476
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 5,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 0,
+              "total": 5,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.43448246478317476
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:github/awesome-copilot": {
+          "flagged": {
+            "tp": 0,
+            "fp": 13,
+            "tn": 260,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 13,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.22809537235419838
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 13,
+              "total": 273,
+              "value": 0.047619047619047616,
+              "ci95": [
+                0.028037023488583016,
+                0.0797555699611646
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 4,
+            "tn": 269,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 4,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.4898908364545973
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 4,
+              "total": 273,
+              "value": 0.014652014652014652,
+              "ci95": [
+                0.005712246187196249,
+                0.0370611840321686
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:huggingface/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 2,
+            "tn": 8,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 2,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.6576197724933469
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 2,
+              "total": 10,
+              "value": 0.2,
+              "ci95": [
+                0.05668215145437519,
+                0.5098375284633583
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 2,
+            "tn": 8,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 2,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.6576197724933469
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 2,
+              "total": 10,
+              "value": 0.2,
+              "ci95": [
+                0.05668215145437519,
+                0.5098375284633583
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:microsoft/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 3,
+            "tn": 65,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 3,
+              "value": 0.0,
+              "ci95": [
+                5.551115123125783e-17,
+                0.5614970317550454
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 3,
+              "total": 68,
+              "value": 0.04411764705882353,
+              "ci95": [
+                0.01511661970804156,
+                0.12187195182496394
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 2,
+            "tn": 66,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 2,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.6576197724933469
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 2,
+              "total": 68,
+              "value": 0.029411764705882353,
+              "ci95": [
+                0.008103179543129883,
+                0.10104631365223063
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:openai/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 3,
+            "tn": 6,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 3,
+              "value": 0.0,
+              "ci95": [
+                5.551115123125783e-17,
+                0.5614970317550454
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 3,
+              "total": 9,
+              "value": 0.3333333333333333,
+              "ci95": [
+                0.1205838183869109,
+                0.6457978644196036
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 2,
+            "tn": 7,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 2,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.6576197724933469
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 2,
+              "total": 9,
+              "value": 0.2222222222222222,
+              "ci95": [
+                0.06322510711784671,
+                0.5474110308930111
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:vercel-labs/agent-skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 0,
+              "total": 2,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.6576197724933469
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 0,
+              "total": 2,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.6576197724933469
+              ]
+            },
+            "f1": null
+          }
+        }
+      }
+    },
+    "errors": []
+  },
+  "false_positive_rules": [
+    [
+      "AMT-EVADE-007",
+      13
+    ],
+    [
+      "AMT-CRED-001",
+      10
+    ],
+    [
+      "AMT-EVADE-004",
+      7
+    ],
+    [
+      "AMT-EXEC-001",
+      5
+    ],
+    [
+      "AMT-PERSIST-003",
+      3
+    ],
+    [
+      "AMT-INJECT-005",
+      3
+    ],
+    [
+      "AMT-SUPPLY-001",
+      3
+    ],
+    [
+      "AMT-SUPPLY-002",
+      3
+    ],
+    [
+      "AMT-INJECT-002",
+      3
+    ],
+    [
+      "AMT-EXEC-007",
+      2
+    ],
+    [
+      "AMT-INJECT-003",
+      2
+    ],
+    [
+      "AMT-EXFIL-001",
+      1
+    ],
+    [
+      "AMT-INJECT-010",
+      1
+    ]
+  ],
+  "false_positives": [
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-run-on-docker",
+      "verdict": "review",
+      "rules": [
+        "AMT-CRED-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-setup-nvidia-gpu-host",
+      "verdict": "review",
+      "rules": [
+        "AMT-PERSIST-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/deepstream-sop",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-EXEC-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-upgrade",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-005"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/hsb-app",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/jetson-headless-mode",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-PERSIST-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/jetson-package",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-SUPPLY-001",
+        "AMT-SUPPLY-002"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/omniverse-realtime-viewer",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-EXEC-007",
+        "AMT-INJECT-010",
+        "AMT-SUPPLY-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/physical-ai-infrastructure-setup-and-resilient-scaling",
+      "verdict": "review",
+      "rules": [
+        "AMT-CRED-001",
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/rag-blueprint",
+      "verdict": "review",
+      "rules": [
+        "AMT-CRED-001",
+        "AMT-EVADE-007",
+        "AMT-INJECT-005"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/tao-analyze-detection-kpi",
+      "verdict": "review",
+      "rules": [
+        "AMT-CRED-001",
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/tao-analyze-gaps-od-map",
+      "verdict": "review",
+      "rules": [
+        "AMT-CRED-001",
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/tao-run-on-kubernetes",
+      "verdict": "review",
+      "rules": [
+        "AMT-CRED-001",
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/tao-setup",
+      "verdict": "review",
+      "rules": [
+        "AMT-CRED-001",
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:agents/azure-verified-modules-owner-triage.agent.md",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-004"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:agents/kubestellar-console.agent.md",
+      "verdict": "review",
+      "rules": [
+        "AMT-CRED-001"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:agents/python-win-arm64-gha-wheel-builder.agent.md",
+      "verdict": "review",
+      "rules": [
+        "AMT-SUPPLY-002"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:agents/salesforce-aura-lwc.agent.md",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-004"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:agents/trojan-skill-hunter.agent.md",
+      "verdict": "block",
+      "rules": [
+        "AMT-CRED-001",
+        "AMT-INJECT-002"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:instructions/devcontainers.instructions.md",
+      "verdict": "block",
+      "rules": [
+        "AMT-INJECT-003"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:skills/aspire",
+      "verdict": "block",
+      "rules": [
+        "AMT-EXEC-001"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:skills/azure-architecture-autopilot",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-004",
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:skills/editorconfig",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-004"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:skills/gitmoji",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-004"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:skills/java-testcontainers",
+      "verdict": "review",
+      "rules": [
+        "AMT-CRED-001"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:skills/roundup",
+      "verdict": "block",
+      "rules": [
+        "AMT-INJECT-002"
+      ]
+    },
+    {
+      "id": "github/awesome-copilot:skills/scout-issue",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-004"
+      ]
+    },
+    {
+      "id": "huggingface/skills:skills/huggingface-spaces",
+      "verdict": "block",
+      "rules": [
+        "AMT-SUPPLY-001",
+        "AMT-SUPPLY-002"
+      ]
+    },
+    {
+      "id": "huggingface/skills:skills/huggingface-zerogpu",
+      "verdict": "block",
+      "rules": [
+        "AMT-INJECT-002"
+      ]
+    },
+    {
+      "id": "microsoft/skills:.github/plugins/azure-sdk-python/skills/agent-framework-azure-ai-py",
+      "verdict": "review",
+      "rules": [
+        "AMT-INJECT-005"
+      ]
+    },
+    {
+      "id": "microsoft/skills:.github/plugins/azure-skills/skills/azure-deploy",
+      "verdict": "block",
+      "rules": [
+        "AMT-EXEC-001"
+      ]
+    },
+    {
+      "id": "microsoft/skills:.github/plugins/azure-skills/skills/azure-prepare",
+      "verdict": "block",
+      "rules": [
+        "AMT-EXEC-001"
+      ]
+    },
+    {
+      "id": "openai/skills:skills/.curated/cloudflare-deploy",
+      "verdict": "block",
+      "rules": [
+        "AMT-EXEC-001",
+        "AMT-EXFIL-001",
+        "AMT-PERSIST-003"
+      ]
+    },
+    {
+      "id": "openai/skills:skills/.curated/figma-use",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-004"
+      ]
+    },
+    {
+      "id": "openai/skills:skills/.curated/sentry",
+      "verdict": "block",
+      "rules": [
+        "AMT-EXEC-001"
+      ]
+    }
+  ],
+  "missed_categories": [],
+  "errors": []
+}

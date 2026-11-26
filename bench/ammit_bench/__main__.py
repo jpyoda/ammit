@@ -19,7 +19,7 @@ import sys
 from pathlib import Path
 
 from . import datasets as ds
-from .metrics import Scorecard
+from .metrics import THRESHOLDS, Scorecard
 from .report import markdown
 from .runner import ammit_identity, find_ammit, scan_population
 
@@ -99,10 +99,10 @@ def cmd_run(args) -> int:
                 card.errors.append(r["id"])
                 continue
             card.add(r, res["verdict"])
-            if r["label"] == "benign" and res["verdict"] != "no-findings":
+            if r["label"] == "benign" and res["verdict"] in THRESHOLDS["flagged"]:
                 fp_rules.update(res["findings"])
                 false_positives.append({"id": r["id"], "verdict": res["verdict"], "rules": res["findings"]})
-            if r["label"] == "malicious" and res["verdict"] == "no-findings":
+            if r["label"] == "malicious" and res["verdict"] not in THRESHOLDS["flagged"]:
                 misses.update(r["categories"] or ["uncategorized"])
         meta.append({
             "id": d["id"], "revision": d["revision"], "samples": len(records),

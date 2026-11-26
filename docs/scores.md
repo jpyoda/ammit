@@ -5,6 +5,31 @@ measured by the [benchmark harness](../bench/README.md). Every rate carries a 95
 Wilson interval. *Flagged* means a `block` or `review` verdict; *blocked* means
 `block` only. Raw results are in [`scores/`](scores/).
 
+## 2026-11-26: false-positive tuning (static rules)
+
+Tuned on the benign **dev** partition only, then the frozen **holdout** was scored
+once to confirm. The changes: findings now carry a surface label (code, instructions,
+config, docs, tests, comments); rules marked `context_sensitive` drop one severity step
+when they match only in docs, tests or comments; results with only low or info findings
+get the new `notes` verdict instead of `review`; and a handful of patterns were
+tightened (details in the pull request). Execution, exfiltration and evasion rules are
+never demoted.
+
+| Benign partition | Samples | Blocked: before → after | Flagged: before → after |
+| --- | --- | --- | --- |
+| dev | 1,318 | 9.6% → **2.1%** (1.5–3.1) | 38.6% → **6.6%** (5.4–8.1) |
+| holdout | 555 | 8.6% → **2.3%** (1.4–4.0) | 37.3% → **6.3%** (4.6–8.6) |
+
+The holdout moved as much as the dev partition, so the fixes generalize rather than
+fitting the samples they were tuned on.
+
+What still blocks benign add-ons, mostly: `curl ... | sh` installers inside legitimate
+skills (`AMT-EXEC-001`). That pattern is risky wherever it appears, so it stays
+critical; the LLM judge and repository context are the next tools for this.
+
+**Not yet measured: recall.** Tuning can cost detection. Every bypass and fixture test
+still passes, but the MaliciousSkillBench validation run is what confirms recall held.
+
 ## 2026-11-26: baseline, milestone 1 (static rules only, before any tuning)
 
 ### Benign corpus: false-positive rate
