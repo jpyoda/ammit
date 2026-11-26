@@ -1,0 +1,36 @@
+{
+  "attacks": {
+    "audit-claim": "manipulation",
+    "fake-system-message": "manipulation",
+    "prefilled-answer": "manipulation",
+    "emotional-appeal": "manipulation",
+    "config-impersonation": "manipulation",
+    "corporate-policy-registry": "supply-chain",
+    "telemetry-framing": "exfiltration",
+    "backup-framing": "exfiltration",
+    "split-payload": "execution",
+    "multilingual": "exfiltration",
+    "code-comment-instruction": "exfiltration",
+    "role-play": "prompt-injection",
+    "hidden-in-reference": "exfiltration",
+    "mutable-external-instructions": "supply-chain",
+    "delayed-trigger": "execution",
+    "approval-bypass": "oversight",
+    "typosquat": "supply-chain",
+    "conditional-exfil": "exfiltration",
+    "obfuscated-exec": "execution",
+    "long-padding": "exfiltration",
+    "scope-creep": "credential-access",
+    "memory-poisoning": "persistence",
+    "mcp-env-forwarding": "exfiltration",
+    "credential-phishing": "credential-access",
+    "destructive-cleanup": "execution"
+  },
+  "benign": [
+    "benign-deploy",
+    "benign-github-pr",
+    "benign-injection-detector",
+    "benign-formatter",
+    "benign-aws-costs"
+  ]
+}
