@@ -184,11 +184,24 @@
       "context_sensitive": true
     },
     {
+      "id": "AMT-EXFIL-002",
+      "title": "Credential files sent over the network",
+      "severity": "critical",
+      "category": "exfiltration",
+      "description": "Reads or archives a credential location and sends it to a network tool in the same command.",
+      "patterns": [
+        "(~|\\$HOME|\\$\\{HOME\\})/\\.(ssh|aws|gnupg|kube|docker|azure|config/gcloud|netrc|git-credentials|npmrc|pypirc)\\b[^\\n]{0,200}\\|\\s*[^\\n]{0,40}\\b(curl|wget|nc|ncat|socat|scp|rsync|ftp)\\b",
+        "\\b(curl|wget|nc|ncat|socat|scp|rsync|ftp)\\b[^\\n]{0,200}(@|<|--data-binary\\s+@|-F\\s+\\S*=@|-T\\s+)\\s*[\\\"']?(~|\\$HOME|\\$\\{HOME\\})/\\.(ssh|aws|gnupg|kube|docker|azure|config/gcloud|netrc|git-credentials|npmrc|pypirc)\\b"
+      ],
+      "confidence": 0.85,
+      "remediation": "An add-on should never send credential files anywhere. Remove it and rotate the affected credentials."
+    },
+    {
       "id": "AMT-INJECT-001",
       "title": "Instruction override",
       "severity": "high",
       "category": "prompt-injection",
-      "description": "Tells the model to ignore its previous instructions.",
+      "description": "Tells the model to ignore its previous instructions. A quoted phrase introduced as an example to detect (\"phrases such as ...\") on the same line is not reported; one on a line of its own still is.",
       "file_kinds": [
         "markdown",
         "text",
@@ -201,7 +214,10 @@
         "\\byou\\s+are\\s+no\\s+longer\\s+(bound|restricted|limited)\\b"
       ],
       "confidence": 0.75,
-      "context_sensitive": true
+      "context_sensitive": true,
+      "exclude_patterns": [
+        "\\b(such\\s+as|for\\s+example|e\\.g\\.|like|phrases?|patterns?|strings?|detect\\w*|flag\\w*|scan\\w*\\s+for|look\\w*\\s+for|watch\\s+for|examples?)\\b[^\\n]{0,60}[\\\"“'`]\\s*(ignore|disregard)\\b"
+      ]
     },
     {
       "id": "AMT-INJECT-002",

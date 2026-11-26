@@ -197,18 +197,16 @@ INSTRUCTION_SUFFIXES = (".instructions.md", ".agent.md", ".prompt.md")
 def materialize_benign_git(dataset: dict, root: Path, out: Path) -> list[dict]:
     """Every skill folder (with SKILL.md) and instruction file in a checkout is one benign sample."""
     records = []
-    seen = set()
     for dirpath, dirnames, filenames in os.walk(root):
         dirnames[:] = [d for d in dirnames if d != ".git"]
         rel_dir = Path(dirpath).relative_to(root)
         if "SKILL.md" in filenames or "skill.md" in filenames:
-            seen.add(rel_dir)
             records.append(_benign_record(dataset, root, rel_dir))
         for name in filenames:
             if name.lower().endswith(INSTRUCTION_SUFFIXES):
                 records.append(_benign_record(dataset, root, rel_dir / name))
-    # A skill nested inside another skill's folder is scanned as part of it too;
-    # keep both, the outer one is what an installer would copy.
+    # A skill nested in another skill's folder is a sample of its own and is
+    # also part of the outer one, which is what an installer would copy.
     out.mkdir(parents=True, exist_ok=True)
     _write_labels(out, records)
     return records

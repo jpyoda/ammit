@@ -83,14 +83,10 @@ func Build(version string, a *ir.Artifact, res analyzer.Result) *Report {
 	if r.Findings == nil {
 		r.Findings = []finding.Finding{}
 	}
-	max := finding.Severity(-1)
 	for _, f := range fs {
 		r.Summary[f.Severity.String()]++
-		if f.Severity > max {
-			max = f.Severity
-		}
 	}
-	switch {
+	switch max := r.MaxSeverity(); {
 	case max >= finding.High:
 		r.Verdict = VerdictBlock
 	case max >= finding.Medium || len(res.Errors) > 0:
@@ -181,11 +177,9 @@ func Text(w io.Writer, rs []*Report, color bool) {
 			}
 			fmt.Fprintf(w, "  %s\n", strings.Join(parts, ", "))
 		}
-		if urls := countRefs(r.References); urls > 0 {
-			fmt.Fprintf(w, "  %s\n", c("2", fmt.Sprintf("%d external references recorded (see --format json)", urls)))
+		if n := len(r.References); n > 0 {
+			fmt.Fprintf(w, "  %s\n", c("2", fmt.Sprintf("%d external references recorded (see --format json)", n)))
 		}
 	}
 	fmt.Fprintf(w, "\n%s\n", c("2", disclaimer))
 }
-
-func countRefs(rs []ir.Reference) int { return len(rs) }

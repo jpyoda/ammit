@@ -30,6 +30,7 @@ import (
 
 	"github.com/jpyoda/ammit/internal/collect"
 	"github.com/jpyoda/ammit/internal/ir"
+	"github.com/jpyoda/ammit/internal/textutil"
 )
 
 // Thresholds.
@@ -263,7 +264,7 @@ func (n *normalizer) text(f *ir.File) {
 		for _, m := range commentRe.FindAllStringSubmatchIndex(f.Text, -1) {
 			body := strings.TrimSpace(f.Text[m[2]:m[3]])
 			if len(body) >= 40 {
-				f.AddNote("hidden-comment", lineAt(f.Text, m[0]), "HTML comment hidden from rendered view: "+clip(body, 80))
+				f.AddNote("hidden-comment", textutil.Line(f.Text, m[0]), "HTML comment hidden from rendered view: "+textutil.Clip(body, 80))
 			}
 		}
 	}
@@ -278,8 +279,8 @@ func (n *normalizer) text(f *ir.File) {
 			continue
 		}
 		n.b64++
-		line := lineAt(f.Text, m[0])
-		f.AddNote("base64-text", line, "base64 blob decodes to text: "+clip(string(dec), 80))
+		line := textutil.Line(f.Text, m[0])
+		f.AddNote("base64-text", line, "base64 blob decodes to text: "+textutil.Clip(string(dec), 80))
 		c := &ir.File{Path: fmt.Sprintf("%s#base64@L%d", f.Path, line), Parent: f.Path, Derived: true, Kind: ir.FileScript, Raw: dec}
 		c.Text = string(dec)
 		n.a.Add(c)
@@ -359,7 +360,7 @@ func stripInvisible(f *ir.File) (string, string) {
 		}
 	}
 	if tagCount > 0 {
-		f.AddNote("unicode-tags", firstLine, fmt.Sprintf("%d invisible Unicode tag characters (ASCII smuggling); hidden text: %s", tagCount, clip(tags.String(), 80)))
+		f.AddNote("unicode-tags", firstLine, fmt.Sprintf("%d invisible Unicode tag characters (ASCII smuggling); hidden text: %s", tagCount, textutil.Clip(tags.String(), 80)))
 	}
 	if bidi > 0 {
 		f.AddNote("unicode-bidi", firstLine, fmt.Sprintf("%d bidirectional control characters can make text display differently than it reads", bidi))
@@ -368,19 +369,4 @@ func stripInvisible(f *ir.File) (string, string) {
 		f.AddNote("unicode-zero-width", firstLine, fmt.Sprintf("%d zero-width characters removed before analysis", zw))
 	}
 	return out.String(), tags.String()
-}
-
-func lineAt(s string, off int) int {
-	if off > len(s) {
-		off = len(s)
-	}
-	return strings.Count(s[:off], "\n") + 1
-}
-
-func clip(s string, n int) string {
-	s = strings.Join(strings.Fields(s), " ")
-	if len(s) > n {
-		return s[:n] + "…"
-	}
-	return s
 }
