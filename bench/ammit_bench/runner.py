@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -80,13 +80,13 @@ def scan_population(ammit: str, records: list[dict], base: Path, extra: list[str
 
 
 def find_ammit(explicit: str | None) -> str:
+    """--ammit, else bin/ammit from the repo root or bench/, else PATH."""
     if explicit:
         return explicit
-    for cand in ("bin/ammit", "ammit"):
-        if os.path.sep in cand and Path(cand).exists():
-            return str(Path(cand).resolve())
-    from shutil import which
-    found = which("ammit")
+    for cand in (Path("bin/ammit"), Path("../bin/ammit")):
+        if cand.exists():
+            return str(cand.resolve())
+    found = shutil.which("ammit")
     if not found:
         raise RunError("ammit not found: run `make build` or pass --ammit")
     return found

@@ -1,5 +1,6 @@
 """Tests for the benchmark harness. Run from bench/: python -m unittest discover -s tests"""
 
+import importlib.util
 import json
 import os
 import shutil
@@ -68,9 +69,7 @@ MSB = {
 
 class MaterializeTest(unittest.TestCase):
     def setUp(self):
-        try:
-            import pyarrow  # noqa: F401
-        except ImportError:
+        if importlib.util.find_spec("pyarrow") is None:
             self.skipTest("pyarrow not installed")
         self.tmp = Path(tempfile.mkdtemp())
 
@@ -151,9 +150,7 @@ class EndToEndTest(unittest.TestCase):
     """Builds ammit and scores a tiny fake MaliciousSkillBench population."""
 
     def setUp(self):
-        try:
-            import pyarrow  # noqa: F401
-        except ImportError:
+        if importlib.util.find_spec("pyarrow") is None:
             self.skipTest("pyarrow not installed")
         self.tmp = Path(tempfile.mkdtemp())
         self.ammit = self.tmp / "ammit"
