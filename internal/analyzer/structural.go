@@ -7,6 +7,7 @@ import (
 
 	"github.com/jpyoda/ammit/internal/finding"
 	"github.com/jpyoda/ammit/internal/ir"
+	"github.com/jpyoda/ammit/internal/surface"
 )
 
 // Structural turns normalizer and collector notes into findings. These are
@@ -41,7 +42,7 @@ var noteRules = map[string]noteRule{
 		"A binary file of unknown type. Its printable strings were scanned."},
 	"hidden-comment": {"AMT-INJECT-010", "Hidden markdown comment", "prompt-injection", finding.Low, 0.4,
 		"HTML comments are invisible when rendered but visible to the model. Review their content."},
-	"base64-text": {"AMT-EVADE-007", "Encoded text blob", "evasion", finding.Low, 0.4,
+	"base64-text": {"AMT-EVADE-007", "Encoded text blob", "evasion", finding.Info, 0.3,
 		"A base64 blob decodes to readable text; the decoded content is scanned as well."},
 	"archive-bomb":       {"AMT-LIMIT-001", "Suspicious compression ratio", "evasion", finding.Medium, 0.6, ""},
 	"archive-depth":      {"AMT-LIMIT-002", "Deeply nested archive not expanded", "incomplete", finding.Medium, 0.5, ""},
@@ -81,7 +82,11 @@ func (Structural) Analyze(_ context.Context, a *ir.Artifact) ([]finding.Finding,
 					File: a.Origin(f), Confidence: 0.3, Remediation: "Delete bytecode and let the interpreter rebuild it from the reviewed source."})
 				continue
 			}
+			before := len(out)
 			mk(code, n.Message, a.Origin(f), f.Path, n.Line)
+			for i := before; i < len(out); i++ {
+				out[i].Surface = surface.Of(f.Path, f.Kind)
+			}
 		}
 	}
 	return out, nil

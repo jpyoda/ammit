@@ -13,13 +13,16 @@ import (
 	"github.com/jpyoda/ammit/internal/ir"
 )
 
-// Verdict is the overall outcome. There is deliberately no "safe" verdict:
+// Verdict is the overall outcome: block (high or critical), review (medium,
+// or an incomplete scan), notes (only low or info), no-findings. There is
+// deliberately no "safe" verdict:
 // a scan can only fail to find problems, never prove their absence.
 type Verdict string
 
 const (
 	VerdictBlock      Verdict = "block"
 	VerdictReview     Verdict = "review"
+	VerdictNotes      Verdict = "notes"
 	VerdictNoFindings Verdict = "no-findings"
 )
 
@@ -90,9 +93,12 @@ func Build(version string, a *ir.Artifact, res analyzer.Result) *Report {
 	switch {
 	case max >= finding.High:
 		r.Verdict = VerdictBlock
-	case max >= finding.Low || len(res.Errors) > 0:
+	case max >= finding.Medium || len(res.Errors) > 0:
 		// Fail closed: an analyzer error means the scan is incomplete.
 		r.Verdict = VerdictReview
+	case max >= finding.Info:
+		// Only low or informational findings: worth reading, not a gate.
+		r.Verdict = VerdictNotes
 	default:
 		r.Verdict = VerdictNoFindings
 	}
@@ -135,7 +141,7 @@ func Text(w io.Writer, rs []*Report, color bool) {
 			fmt.Fprintln(w)
 		}
 		verdict := strings.ToUpper(string(r.Verdict))
-		vc := map[Verdict]string{VerdictBlock: "1;31", VerdictReview: "1;33", VerdictNoFindings: "1;32"}[r.Verdict]
+		vc := map[Verdict]string{VerdictBlock: "1;31", VerdictReview: "1;33", VerdictNotes: "1;36", VerdictNoFindings: "1;32"}[r.Verdict]
 		fmt.Fprintf(w, "%s  %s (%s, %d files)\n", c(vc, verdict), r.Artifact.Name, r.Artifact.Kind, r.Artifact.Files)
 		fmt.Fprintf(w, "    %s\n", c("2", r.Artifact.Root))
 		for _, f := range r.Findings {
@@ -150,8 +156,14 @@ func Text(w io.Writer, rs []*Report, color bool) {
 				loc = fmt.Sprintf("%s:%d", f.File, f.Line)
 			}
 			fmt.Fprintf(w, "  %-8s %s %s\n", c(sevColor[f.Severity], strings.ToUpper(f.Severity.String())), c("1", f.Title), c("2", "["+f.RuleID+"]"))
+			if f.Surface != "" && f.Surface != "code" && f.Surface != "instructions" {
+				loc += " [" + f.Surface + "]"
+			}
 			if loc != "" {
 				fmt.Fprintf(w, "           %s\n", loc)
+			}
+			if f.DemotedFrom != "" {
+				fmt.Fprintf(w, "           %s\n", c("2", "demoted from "+f.DemotedFrom+": "+f.DemotedWhy))
 			}
 			if f.Evidence != "" {
 				fmt.Fprintf(w, "           %s\n", c("2", "> "+f.Evidence))

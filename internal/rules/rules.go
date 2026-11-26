@@ -18,6 +18,7 @@ import (
 
 	"github.com/jpyoda/ammit/internal/finding"
 	"github.com/jpyoda/ammit/internal/ir"
+	"github.com/jpyoda/ammit/internal/surface"
 )
 
 // Rule is one detection rule.
@@ -43,6 +44,11 @@ type Rule struct {
 	CaseSensitive bool     `json:"case_sensitive,omitempty"`
 	Confidence    float64  `json:"confidence,omitempty"`
 	References    []string `json:"references,omitempty"`
+	// ContextSensitive rules match wording that is harmless when it is only
+	// mentioned. Their findings drop one severity step on the docs, tests
+	// and comments surfaces. Execution, exfiltration and evasion rules must
+	// never set it.
+	ContextSensitive bool `json:"context_sensitive,omitempty"`
 
 	compiled []*regexp.Regexp
 	excludes []*regexp.Regexp
@@ -184,6 +190,12 @@ func (an Analyzer) Analyze(ctx context.Context, a *ir.Artifact) ([]finding.Findi
 			return out, err
 		}
 		origin := a.Origin(f)
+		fileSurface := surface.Of(f.Path, f.Kind)
+		if f.Derived {
+			if p := a.File(f.Parent); p != nil {
+				fileSurface = surface.Of(p.Path, p.Kind)
+			}
+		}
 		for _, r := range an.Set.Rules {
 			if r.kinds != nil && !r.kinds[f.Kind] {
 				continue
@@ -195,7 +207,13 @@ func (an Analyzer) Analyze(ctx context.Context, a *ir.Artifact) ([]finding.Findi
 				}
 				fd := finding.Finding{RuleID: r.ID, Title: r.Title, Severity: r.Severity, Category: r.Category,
 					Message: r.Description, File: origin, Line: m.line, Evidence: ev,
-					Confidence: r.Confidence, Remediation: r.Remediation}
+					Confidence: r.Confidence, Remediation: r.Remediation, Surface: fileSurface}
+				if fileSurface != surface.Tests && fileSurface != surface.Docs && surface.IsCommentLine(m.text, f.Kind) {
+					fd.Surface = surface.Comments
+				}
+				if r.ContextSensitive && surface.Passive(fd.Surface) {
+					fd.Demote("matched in " + fd.Surface + ", not in code or instructions")
+				}
 				if f.Path != origin {
 					fd.Location = f.Path
 					if f.Derived {

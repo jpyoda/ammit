@@ -64,6 +64,22 @@ type Finding struct {
 	// Confidence in [0,1]: how sure the analyzer is this is a real problem.
 	Confidence  float64 `json:"confidence"`
 	Remediation string  `json:"remediation,omitempty"`
+	// Surface says where the finding sits: code, instructions, config,
+	// docs, tests or comments (see internal/surface).
+	Surface string `json:"surface,omitempty"`
+	// DemotedFrom is the original severity when context lowered it.
+	DemotedFrom string `json:"demoted_from,omitempty"`
+	DemotedWhy  string `json:"demoted_why,omitempty"`
+}
+
+// Demote lowers severity one step and records why. Info stays info.
+func (f *Finding) Demote(why string) {
+	if f.Severity == Info {
+		return
+	}
+	f.DemotedFrom = f.Severity.String()
+	f.DemotedWhy = why
+	f.Severity--
 }
 
 // Key identifies duplicate findings.
