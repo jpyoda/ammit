@@ -35,10 +35,22 @@ a rule with the same `id` as a default replaces it, so you can tune or disable d
 | `match` | `any` (default): report each matching line. `all`: every pattern must match somewhere in the same file. |
 | `case_sensitive` | Matching is case-insensitive unless this is `true`. |
 | `confidence` | 0 to 1, how often a match is a real problem. |
+| `context_sensitive` | The rule matches wording that is harmless when only mentioned. On the `docs`, `tests` and `comments` surfaces its findings drop one severity step, and the report says so. Never set it on execution, exfiltration or evasion rules. |
 
 Rules run on **normalized** text: invisible characters are already removed, archive
 members and documents are already unpacked, and base64 blobs are already decoded into
 extra files. You don't need to handle those in patterns.
+
+## Surfaces and verdicts
+
+Every finding is labeled with the surface it sits on: `code`, `instructions` (SKILL.md,
+agent and instruction files, and any other markdown an agent may load), `config`,
+`docs` (README, LICENSE, a `docs/` folder), `tests` (`tests/`, `evals/`, `fixtures/`,
+`test_*.py` and similar) or `comments` (a comment line in code). Labels never hide a
+finding.
+
+Verdicts: `block` (high or critical), `review` (medium, or an incomplete scan), `notes`
+(only low or info findings), `no-findings`.
 
 ## Built-in structural checks
 

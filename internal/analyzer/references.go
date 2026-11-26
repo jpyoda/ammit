@@ -53,7 +53,25 @@ func (References) Analyze(_ context.Context, a *ir.Artifact) ([]finding.Finding,
 	return out, nil
 }
 
+// documentation ranges (RFC 5737) never route; they appear in examples.
+var docNets = func() []*net.IPNet {
+	var ns []*net.IPNet
+	for _, c := range []string{"192.0.2.0/24", "198.51.100.0/24", "203.0.113.0/24", "2001:db8::/32"} {
+		_, n, _ := net.ParseCIDR(c)
+		ns = append(ns, n)
+	}
+	return ns
+}()
+
 func isLocal(h string) bool {
 	ip := net.ParseIP(h)
-	return ip != nil && (ip.IsLoopback() || ip.IsPrivate() || ip.IsUnspecified())
+	if ip == nil {
+		return false
+	}
+	for _, n := range docNets {
+		if n.Contains(ip) {
+			return true
+		}
+	}
+	return ip.IsLoopback() || ip.IsPrivate() || ip.IsUnspecified()
 }
