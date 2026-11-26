@@ -1,0 +1,54 @@
+{
+  "lock_version": 1,
+  "updated_at": "2026-11-26",
+  "safety": {
+    "execute_samples": false,
+    "network_fetch_in_pull_requests": false,
+    "materialized_file_mode": "0600"
+  },
+  "datasets": [
+    {
+      "id": "ProtectSkills/MaliciousSkillBench",
+      "provider": "huggingface",
+      "role": "primary",
+      "revision": "d4b42ce5766a6e0359c987cf59c1007cb3795a90",
+      "license": "CC-BY-4.0 (benchmark metadata; third-party skill text keeps upstream terms)",
+      "files": ["primary.parquet", "splits/source_disjoint.parquet"],
+      "file_sha256": {},
+      "expected": {
+        "primary_rows": 9740,
+        "splits": {
+          "source_disjoint": {
+            "test": {"total": 1384, "malicious": 839, "benign": 545}
+          }
+        }
+      },
+      "frozen_partitions": {"source_disjoint": "test"},
+      "notes": "Revision, row counts and the source-disjoint test track are the ones Cisco's skill-scanner evals pin and gate releases on (Apache-2.0), so scores compare directly. Each sample is one SKILL.md text."
+    },
+    {
+      "id": "cuhk-zhuque/SkillTrustBench",
+      "provider": "huggingface",
+      "role": "secondary",
+      "revision": null,
+      "status": "pending",
+      "license": "CC-BY-NC-SA-4.0",
+      "notes": "Pin a revision and a label adapter before use. Non-commercial license: never copy samples into this repository."
+    },
+    {
+      "id": "MalSkillBench",
+      "provider": "unknown",
+      "role": "secondary",
+      "revision": null,
+      "status": "pending",
+      "notes": "Paper arXiv:2606.07131 says data and code are released; repository and license not yet confirmed."
+    },
+    {"id": "benign:anthropics/skills", "provider": "git", "role": "benign", "url": "https://github.com/anthropics/skills.git", "revision": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba"},
+    {"id": "benign:openai/skills", "provider": "git", "role": "benign", "url": "https://github.com/openai/skills.git", "revision": "49f948faa9258a0c61caceaf225e179651397431"},
+    {"id": "benign:NVIDIA/skills", "provider": "git", "role": "benign", "url": "https://github.com/NVIDIA/skills.git", "revision": "f9e407149dc68eedc6dc3b51f39db1217d459267"},
+    {"id": "benign:vercel-labs/agent-skills", "provider": "git", "role": "benign", "url": "https://github.com/vercel-labs/agent-skills.git", "revision": "5a37a6329fbad3666c3207392a6a7c0110e92efb"},
+    {"id": "benign:github/awesome-copilot", "provider": "git", "role": "benign", "url": "https://github.com/github/awesome-copilot.git", "revision": "93fc8b9ee3ef56b9b5e7261e6ce92d314cb2c1cf"},
+    {"id": "benign:microsoft/skills", "provider": "git", "role": "benign", "url": "https://github.com/microsoft/skills.git", "revision": "47eb3888eb42aef074fcb617931bf6e5934e45d9"},
+    {"id": "benign:huggingface/skills", "provider": "git", "role": "benign", "url": "https://github.com/huggingface/skills.git", "revision": "58cdf1745d1d51748e38d1520cdc25898579c22f"}
+  ]
+}
