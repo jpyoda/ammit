@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/jpyoda/ammit/internal/textutil"
 	"os/exec"
 	"path/filepath"
 	"time"
@@ -76,7 +77,7 @@ func (p Plugin) Analyze(ctx context.Context, a *ir.Artifact) ([]finding.Finding,
 	stdout.max, stderr.max = maxPluginOutput, 64<<10
 	cmd.Stdout, cmd.Stderr = &stdout, &stderr
 	if err := cmd.Run(); err != nil {
-		return nil, fmt.Errorf("plugin failed: %v: %s", err, finding.Clip(stderr.String(), 300))
+		return nil, fmt.Errorf("plugin failed: %v: %s", err, textutil.Clip(stderr.String(), 300))
 	}
 	if stdout.overflow {
 		return nil, fmt.Errorf("plugin output exceeded %d bytes", maxPluginOutput)

@@ -3,6 +3,7 @@ package judge
 import (
 	"context"
 	"fmt"
+	"github.com/jpyoda/ammit/internal/textutil"
 	"strings"
 
 	"github.com/jpyoda/ammit/internal/finding"
@@ -43,13 +44,7 @@ func Judge(ctx context.Context, ask Asker, a *ir.Artifact, static []finding.Find
 	p := Build(a, static, o.Budget)
 	st := Stats{Runs: o.Runs, Redactions: p.Redactions, Files: len(p.Files), Omitted: len(p.Omitted), Chars: p.Chars}
 
-	// The text each included file was sent as, for verifying quotes.
-	sent := map[string]string{}
-	for _, path := range p.Files {
-		f := a.File(path)
-		t, _ := redact.Text(condense(f.Text))
-		sent[path] = t
-	}
+	sent := p.Sent // what the model saw, for verifying quotes
 
 	type key struct{ category, file string }
 	type seen struct {
@@ -214,7 +209,7 @@ func toFinding(a *ir.Artifact, path, category, reason, quote string) finding.Fin
 		s = surface.Of(path, f.Kind)
 	}
 	fd := finding.Finding{RuleID: ruleIDs[category], Title: "LLM judge: " + titles[category], Category: category,
-		Message: reason, File: origin, Evidence: finding.Clip(quote, 160), Analyzer: "judge", Confidence: 0.5, Surface: s}
+		Message: reason, File: origin, Evidence: textutil.Clip(quote, 160), Analyzer: "judge", Confidence: 0.5, Surface: s}
 	if origin != path {
 		fd.Location = path
 	}

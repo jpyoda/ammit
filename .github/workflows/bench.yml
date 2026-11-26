@@ -17,6 +17,13 @@ on:
         description: "Allow scoring frozen partitions (test, holdout)"
         type: boolean
         default: false
+      judge:
+        description: "Also run the LLM judge (needs the ANTHROPIC_API_KEY secret; costs money)"
+        type: boolean
+        default: false
+      judge_model:
+        description: "Judge model"
+        default: claude-haiku-5-5
       record_hashes:
         description: "First run only: download files and propose sha256 pins for the lock"
         type: boolean
@@ -45,7 +52,9 @@ jobs:
       - name: Install harness dependencies
         run: pip install -r bench/requirements.txt
       - name: Build ammit
-        run: go build -trimpath -o bin/ammit ./cmd/ammit
+        run: |
+          go build -trimpath -o bin/ammit ./cmd/ammit
+          if [ -d cmd/ammit-judge ]; then go build -trimpath -o bin/ammit-judge ./cmd/ammit-judge; fi
       - name: Propose hash pins
         if: inputs.record_hashes
         working-directory: bench
@@ -57,11 +66,14 @@ jobs:
           PARTITION: ${{ inputs.partition || 'validation' }}
           BENIGN_PARTITION: ${{ inputs.benign_partition || 'dev' }}
           MILESTONE: ${{ inputs.milestone && '--milestone' || '' }}
+          JUDGE_ARGS: ${{ inputs.judge && format('--judge --judge-model {0}', inputs.judge_model) || '' }}
+          ANTHROPIC_API_KEY: ${{ inputs.judge && secrets.ANTHROPIC_API_KEY || '' }}
         run: |
           # shellcheck disable=SC2086
           python -m ammit_bench run --ammit ../bin/ammit \
             --cache "$RUNNER_TEMP/cache" --work "$RUNNER_TEMP/work" \
             --partition "$PARTITION" --benign-partition "$BENIGN_PARTITION" $MILESTONE \
+            --extra-args "$JUDGE_ARGS" \
             --out "$RUNNER_TEMP/results.json"
           python -m ammit_bench report "$RUNNER_TEMP/results.json" >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
