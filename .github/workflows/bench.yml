@@ -1,0 +1,74 @@
+name: bench
+
+# Scores ammit on pinned public datasets. Never runs on pull requests: the
+# datasets contain malicious samples and fetching them needs the network.
+# Samples are read, never executed.
+
+on:
+  workflow_dispatch:
+    inputs:
+      partition:
+        description: "MaliciousSkillBench source_disjoint partition (train, validation, test)"
+        default: validation
+      benign_partition:
+        description: "Benign corpus partition (dev, holdout)"
+        default: dev
+      milestone:
+        description: "Allow scoring frozen partitions (test, holdout)"
+        type: boolean
+        default: false
+      record_hashes:
+        description: "First run only: download files and propose sha256 pins for the lock"
+        type: boolean
+        default: false
+  schedule:
+    - cron: "17 6 * * 1" # weekly, Monday 06:17 UTC: development partitions only
+
+permissions:
+  contents: read
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
+        with:
+          go-version-file: go.mod
+          cache: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+      - name: Install harness dependencies
+        run: pip install -r bench/requirements.txt
+      - name: Build ammit
+        run: go build -trimpath -o bin/ammit ./cmd/ammit
+      - name: Propose hash pins
+        if: inputs.record_hashes
+        working-directory: bench
+        run: python -m ammit_bench fetch --cache "$RUNNER_TEMP/cache" --record-hashes
+      - name: Run
+        if: ${{ !inputs.record_hashes }}
+        working-directory: bench
+        env:
+          PARTITION: ${{ inputs.partition || 'validation' }}
+          BENIGN_PARTITION: ${{ inputs.benign_partition || 'dev' }}
+          MILESTONE: ${{ inputs.milestone && '--milestone' || '' }}
+        run: |
+          # shellcheck disable=SC2086
+          python -m ammit_bench run --ammit ../bin/ammit \
+            --cache "$RUNNER_TEMP/cache" --work "$RUNNER_TEMP/work" \
+            --partition "$PARTITION" --benign-partition "$BENIGN_PARTITION" $MILESTONE \
+            --out "$RUNNER_TEMP/results.json"
+          python -m ammit_bench report "$RUNNER_TEMP/results.json" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: bench-results
+          path: |
+            ${{ runner.temp }}/results.json
+            bench/datasets.lock.json
+          if-no-files-found: ignore
