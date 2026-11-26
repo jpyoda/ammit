@@ -19,6 +19,7 @@ import (
 	"github.com/jpyoda/ammit/internal/finding"
 	"github.com/jpyoda/ammit/internal/ir"
 	"github.com/jpyoda/ammit/internal/surface"
+	"github.com/jpyoda/ammit/internal/textutil"
 )
 
 // Rule is one detection rule.
@@ -51,6 +52,7 @@ type Rule struct {
 	ContextSensitive bool `json:"context_sensitive,omitempty"`
 
 	compiled []*regexp.Regexp
+	filters  []prefilter // one per compiled pattern; see prefilter.go
 	excludes []*regexp.Regexp
 	kinds    map[ir.FileKind]bool
 }
@@ -141,14 +143,16 @@ func (r *Rule) compile() error {
 		r.Confidence = 0.6
 	}
 	for _, p := range r.Patterns {
+		src := p
 		if !r.CaseSensitive {
-			p = "(?i)" + p
+			src = "(?i)" + p
 		}
-		re, err := regexp.Compile(p)
+		re, err := regexp.Compile(src)
 		if err != nil {
 			return err
 		}
 		r.compiled = append(r.compiled, re)
+		r.filters = append(r.filters, buildPrefilter(p, r.CaseSensitive))
 	}
 	for _, p := range r.ExcludePatterns {
 		if !r.CaseSensitive {
@@ -186,6 +190,7 @@ func (an Analyzer) Analyze(ctx context.Context, a *ir.Artifact) ([]finding.Findi
 		if f.Text == "" || !f.Kind.IsText() {
 			continue
 		}
+		folded := fold(f.Text) // once per file, shared by every rule's prefilter
 		if err := ctx.Err(); err != nil {
 			return out, err
 		}
@@ -200,8 +205,8 @@ func (an Analyzer) Analyze(ctx context.Context, a *ir.Artifact) ([]finding.Findi
 			if r.kinds != nil && !r.kinds[f.Kind] {
 				continue
 			}
-			for _, m := range r.match(f.Text) {
-				ev := finding.Clip(m.text, 160)
+			for _, m := range r.match(f.Text, folded) {
+				ev := textutil.Clip(m.text, 160)
 				if r.Category == "secrets" {
 					ev = "[redacted: matched a credential pattern]"
 				}
@@ -242,8 +247,18 @@ func (r *Rule) excluded(line string) bool {
 	return false
 }
 
-func (r *Rule) match(text string) []match {
+// match runs the rule on text. folded is fold(text), used by prefilters.
+func (r *Rule) match(text, folded string) []match {
+	view := folded
+	if r.CaseSensitive {
+		view = text
+	}
 	if r.Match == "all" {
+		for _, f := range r.filters {
+			if !f.pass(view) {
+				return nil
+			}
+		}
 		var first []int
 		for i, re := range r.compiled {
 			loc := re.FindStringIndex(text)
@@ -258,13 +273,16 @@ func (r *Rule) match(text string) []match {
 		if r.excluded(lt) {
 			return nil
 		}
-		return []match{{lineOf(text, first[0]), lt}}
+		return []match{{textutil.Line(text, first[0]), lt}}
 	}
 	var out []match
 	seen := map[int]bool{}
-	for _, re := range r.compiled {
+	for i, re := range r.compiled {
+		if !r.filters[i].pass(view) {
+			continue
+		}
 		for _, loc := range re.FindAllStringIndex(text, maxPerRuleFile) {
-			ln := lineOf(text, loc[0])
+			ln := textutil.Line(text, loc[0])
 			if seen[ln] {
 				continue
 			}
@@ -281,8 +299,6 @@ func (r *Rule) match(text string) []match {
 	}
 	return out
 }
-
-func lineOf(s string, off int) int { return strings.Count(s[:off], "\n") + 1 }
 
 func lineText(s string, off int) string {
 	start := strings.LastIndexByte(s[:off], '\n') + 1

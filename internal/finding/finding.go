@@ -86,12 +86,3 @@ func (f *Finding) Demote(why string) {
 func (f Finding) Key() string {
 	return fmt.Sprintf("%s|%s|%s|%d", f.RuleID, f.File, f.Location, f.Line)
 }
-
-// Clip shortens evidence for display.
-func Clip(s string, n int) string {
-	s = strings.Join(strings.Fields(s), " ")
-	if len(s) > n {
-		return s[:n] + "…"
-	}
-	return s
-}

@@ -4,7 +4,7 @@
 agent to do, or does itself, match what it says it is for, and is any of it harmful?**
 Pattern rules catch known code tricks; the judge is for malicious intent written in plain
 language, which rules miss. On the [red-team set](../testdata/judge-redteam/), static rules
-alone block 8 of 25 attacks.
+alone block 10 of 25 attacks.
 
 ```sh
 go install github.com/jpyoda/ammit/cmd/ammit-judge@latest   # next to ammit, or on PATH
