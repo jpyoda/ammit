@@ -1,0 +1,4 @@
+bin/
+*.sarif
+/ammit
+.DS_Store

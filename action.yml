@@ -1,0 +1,56 @@
+name: ammit
+description: Scan AI agent add-ons (skills, plugins, MCP configs, instruction files) for malicious or risky behavior.
+branding:
+  icon: shield
+  color: gray-dark
+
+inputs:
+  path:
+    description: Space-separated paths to scan.
+    default: .
+  fail-on:
+    description: Fail the step when a finding is at or above this severity (critical, high, medium, low, info, none).
+    default: high
+  upload-sarif:
+    description: Upload results to GitHub code scanning (needs `security-events: write`).
+    default: "true"
+  args:
+    description: Extra arguments for `ammit scan`.
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
+      with:
+        go-version-file: ${{ github.action_path }}/go.mod
+        cache: false
+    - name: Build ammit
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: go build -trimpath -o "$RUNNER_TEMP/ammit" ./cmd/ammit
+    - name: Scan
+      id: scan
+      shell: bash
+      env:
+        AMMIT_PATHS: ${{ inputs.path }}
+        AMMIT_FAIL_ON: ${{ inputs.fail-on }}
+        AMMIT_ARGS: ${{ inputs.args }}
+      run: |
+        set +e
+        # shellcheck disable=SC2086
+        "$RUNNER_TEMP/ammit" scan --format sarif --output "$RUNNER_TEMP/ammit.sarif" --fail-on "$AMMIT_FAIL_ON" $AMMIT_ARGS $AMMIT_PATHS
+        code=$?
+        "$RUNNER_TEMP/ammit" scan --fail-on none --color never $AMMIT_ARGS $AMMIT_PATHS
+        echo "exit-code=$code" >> "$GITHUB_OUTPUT"
+    - name: Upload SARIF
+      if: inputs.upload-sarif == 'true' && always()
+      uses: github/codeql-action/upload-sarif@915412ff23e8b7659517e607487dbeae018f2934 # v4.39.5
+      with:
+        sarif_file: ${{ runner.temp }}/ammit.sarif
+        category: ammit
+    - name: Enforce --fail-on
+      shell: bash
+      env:
+        CODE: ${{ steps.scan.outputs.exit-code }}
+      run: exit "$CODE"

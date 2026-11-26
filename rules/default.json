@@ -1,0 +1,450 @@
+{
+  "name": "ammit-default",
+  "rules": [
+    {
+      "id": "AMT-EXEC-001",
+      "title": "Remote script piped to an interpreter",
+      "severity": "critical",
+      "category": "execution",
+      "description": "Downloads code and runs it immediately, so what runs can change after review.",
+      "remediation": "Vendor the script into the add-on, pin it by hash, and review it.",
+      "patterns": [
+        "\\b(curl|wget)\\s+[^\\n|]*(https?://|\\$|\\s-)[^\\n|]{0,300}\\|\\s*(sudo\\s+)?(ba|z|da|k)?sh\\b",
+        "\\b(curl|wget)\\s+[^\\n|]*(https?://|\\$|\\s-)[^\\n|]{0,300}\\|\\s*(sudo\\s+)?(python3?|perl|ruby|node)\\b",
+        "\\b(ba|z)?sh\\s+(-c\\s+)?[\\\"']?\\$\\(\\s*(curl|wget)\\b",
+        "\\b(ba|z)?sh\\s+<\\(\\s*(curl|wget)\\b",
+        "\\b(iwr|irm|invoke-webrequest|invoke-restmethod)\\b[^\\n]{0,300}\\|\\s*(iex|invoke-expression)\\b"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "id": "AMT-EXEC-002",
+      "title": "Decode-and-execute",
+      "severity": "high",
+      "category": "execution",
+      "description": "Decodes hidden content and executes it, a common way to hide a payload from review.",
+      "patterns": [
+        "base64\\s+(-d|--decode|-D)\\b[^\\n]{0,80}\\|\\s*(sudo\\s+)?(ba|z)?sh\\b",
+        "\\b(eval|exec)\\s*\\(\\s*(base64\\.b64decode|atob|codecs\\.decode|bytes\\.fromhex|zlib\\.decompress|marshal\\.loads)",
+        "powershell(\\.exe)?\\b[^\\n]{0,60}\\s-(e|enc|encodedcommand)\\s+[A-Za-z0-9+/=]{20,}",
+        "\\bFunction\\s*\\(\\s*atob\\s*\\("
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "AMT-EXEC-003",
+      "title": "Code fetched and executed in-process",
+      "severity": "critical",
+      "category": "execution",
+      "description": "Fetches code over the network and evaluates it directly.",
+      "patterns": [
+        "\\bexec\\s*\\(\\s*(requests\\.get|urllib\\.request\\.urlopen|urlopen)\\s*\\(",
+        "\\beval\\s*\\(\\s*\\(?\\s*(await\\s+)?fetch\\s*\\(",
+        "\\bexec\\s*\\(\\s*__import__\\(\\s*['\\\"]urllib"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "id": "AMT-EXEC-004",
+      "title": "macOS Gatekeeper bypass",
+      "severity": "high",
+      "category": "execution",
+      "description": "Removes the quarantine flag or disables Gatekeeper so a downloaded binary runs without warnings. Used by the ClawHavoc campaign to deliver Atomic Stealer.",
+      "patterns": [
+        "\\bxattr\\s+(-[a-z]*d[a-z]*\\s+|-[a-z]*c[a-z]*\\s+)[^\\n]{0,40}com\\.apple\\.quarantine",
+        "\\bxattr\\s+-c\\b",
+        "\\bspctl\\s+--master-disable\\b"
+      ],
+      "confidence": 0.7
+    },
+    {
+      "id": "AMT-EXEC-005",
+      "title": "Password-protected archive extraction",
+      "severity": "high",
+      "category": "execution",
+      "description": "Extracts an archive with a password. Encrypted archives are used to get malware past antivirus scanning.",
+      "patterns": [
+        "\\bunzip\\s+[^\\n]{0,60}-P\\s+\\S+",
+        "\\b7z\\s+[ex]\\s+[^\\n]{0,80}\\s-p\\S+"
+      ],
+      "confidence": 0.75
+    },
+    {
+      "id": "AMT-EXEC-006",
+      "title": "Reverse shell",
+      "severity": "critical",
+      "category": "execution",
+      "description": "Opens an interactive shell back to a remote host.",
+      "patterns": [
+        "/dev/tcp/[^\\s/]+/\\d+",
+        "\\bnc(at)?\\b[^\\n]{0,60}\\s-e\\s+/bin/(ba|z)?sh",
+        "\\b(ba|z)?sh\\s+-i\\s+>&",
+        "\\bmkfifo\\s+\\S+[^\\n]{0,80}\\bnc\\b",
+        "\\bpty\\.spawn\\s*\\(\\s*['\\\"]/bin/(ba|z)?sh"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "id": "AMT-EXEC-007",
+      "title": "Download, make executable and run",
+      "severity": "high",
+      "category": "execution",
+      "description": "Downloads a file and marks it executable.",
+      "patterns": [
+        "\\b(curl|wget)\\b[^\\n]{0,300}(\\s-o\\s|\\s-O\\b|--output)",
+        "\\bchmod\\s+(\\+x|[0-7]*[1357][0-7]{0,2})\\b"
+      ],
+      "match": "all",
+      "confidence": 0.5
+    },
+    {
+      "id": "AMT-CRED-001",
+      "title": "Access to credential stores",
+      "severity": "high",
+      "category": "credential-access",
+      "description": "Reads files or stores that hold credentials: SSH keys, cloud credentials, keychains, browser passwords.",
+      "remediation": "An add-on should never need raw credential files. Use the agent's connector or a scoped token instead.",
+      "patterns": [
+        "\\.ssh/(id_[a-z0-9_]+|authorized_keys|known_hosts)\\b",
+        "\\.aws/credentials\\b",
+        "\\.config/gcloud\\b",
+        "\\.kube/config\\b",
+        "\\.docker/config\\.json\\b",
+        "\\.(netrc|git-credentials)\\b",
+        "\\.gnupg/",
+        "\\bsecurity\\s+(find-generic-password|find-internet-password|dump-keychain)\\b",
+        "\\b(Login Data|Cookies\\.binarycookies|logins\\.json|key4\\.db)\\b"
+      ],
+      "exclude_patterns": [
+        "^\\s*(//|/\\*|\\*\\s|#\\s)"
+      ],
+      "confidence": 0.65
+    },
+    {
+      "id": "AMT-CRED-002",
+      "title": "Whole environment sent over the network",
+      "severity": "high",
+      "category": "exfiltration",
+      "description": "Collects every environment variable (where API keys usually live) in a file that also makes network requests.",
+      "file_kinds": [
+        "script",
+        "text"
+      ],
+      "patterns": [
+        "(json\\.dumps\\(\\s*(dict\\()?\\s*os\\.environ|str\\(\\s*(dict\\()?\\s*os\\.environ|urlencode\\(\\s*(dict\\()?\\s*os\\.environ|\\b(data|json|params)\\s*=\\s*(dict\\()?\\s*os\\.environ\\b|JSON\\.stringify\\(\\s*process\\.env\\s*\\)|\\bprintenv\\b[^\\n]*\\||\\benv\\s*\\|\\s*(curl|nc|base64|xxd))",
+        "(requests\\.(post|put|get)|urllib\\.request|http\\.client|urlopen|\\bfetch\\s*\\(|axios\\.|curl\\s+[^\\n]*(-d\\b|--data|-F\\b|-T\\b)|wget\\s+[^\\n]*--post|XMLHttpRequest|socket\\.connect|\\bnc\\s)"
+      ],
+      "match": "all",
+      "confidence": 0.6
+    },
+    {
+      "id": "AMT-CRED-003",
+      "title": "Cryptocurrency wallet targeting",
+      "severity": "medium",
+      "category": "credential-access",
+      "description": "References wallet files or seed phrases, a common target of stealer malware.",
+      "patterns": [
+        "\\bwallet\\.dat\\b",
+        "Application Support/(Exodus|Electrum|atomic)",
+        "\\bmetamask\\b[^\\n]{0,60}(vault|extension|ldb|Local Extension Settings)",
+        "\\b(seed|recovery|mnemonic)\\s+phrase\\b",
+        "keystore/UTC--",
+        "solana/id\\.json"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "AMT-SECRET-001",
+      "title": "Hardcoded secret",
+      "severity": "medium",
+      "category": "secrets",
+      "description": "A credential is embedded in the add-on. Anyone who installs it gets the secret.",
+      "remediation": "Remove the secret, rotate it, and load it from the environment at runtime.",
+      "patterns": [
+        "\\bAKIA[0-9A-Z]{16}\\b",
+        "\\bghp_[A-Za-z0-9]{36}\\b",
+        "\\bgithub_pat_[A-Za-z0-9_]{60,}",
+        "\\bsk-ant-[A-Za-z0-9_-]{20,}",
+        "\\bsk-(proj-)?[A-Za-z0-9_-]{32,}",
+        "\\bxox[baprs]-[A-Za-z0-9-]{10,}",
+        "-----BEGIN (RSA |OPENSSH |EC |DSA )?PRIVATE KEY-----",
+        "\\bAIza[0-9A-Za-z_-]{35}\\b"
+      ],
+      "case_sensitive": true,
+      "confidence": 0.7
+    },
+    {
+      "id": "AMT-EXFIL-001",
+      "title": "Data sent to a webhook, paste or tunnel service",
+      "severity": "high",
+      "category": "exfiltration",
+      "description": "Talks to a service commonly used to receive stolen data or reach machines behind firewalls.",
+      "patterns": [
+        "discord(app)?\\.com/api/webhooks/",
+        "api\\.telegram\\.org/bot",
+        "hooks\\.slack\\.com/services/",
+        "\\bwebhook\\.site\\b",
+        "\\b(requestbin|pipedream)\\.(net|com)\\b",
+        "\\bngrok(-free)?\\.(io|app|dev)\\b",
+        "\\btrycloudflare\\.com\\b",
+        "\\b(interact\\.sh|oast\\.(pro|fun|live|site|online|me)|burpcollaborator\\.net)\\b",
+        "\\bpastebin\\.com/(raw|api)\\b",
+        "\\b(transfer\\.sh|0x0\\.st)\\b"
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "AMT-PERSIST-001",
+      "title": "Persistence mechanism",
+      "severity": "high",
+      "category": "persistence",
+      "description": "Makes code run again later: cron, launch agents, shell startup files, Windows Run keys.",
+      "patterns": [
+        "\\bcrontab\\s+(-l|-e|-\\s|\\S+\\.cron)",
+        "/etc/cron",
+        "\\blaunchctl\\s+(load|bootstrap|submit)\\b",
+        "Library/Launch(Agents|Daemons)",
+        "\\bsystemctl\\s+(--user\\s+)?enable\\b",
+        ">>\\s*~?/?(\\$HOME/)?\\.(bashrc|zshrc|profile|bash_profile|zprofile|zshenv)\\b",
+        "CurrentVersion\\\\Run",
+        "\\bschtasks\\s+/create\\b"
+      ],
+      "confidence": 0.7
+    },
+    {
+      "id": "AMT-PERSIST-002",
+      "title": "Writes to agent configuration",
+      "severity": "high",
+      "category": "persistence",
+      "description": "Modifies agent settings, hooks, skills or instruction files, which can grant itself permissions or persist across sessions.",
+      "patterns": [
+        "(\\s>>?\\s*|\\btee\\s+(-a\\s+)?)[\\\"']?[~$\\w./{}-]*(\\.claude/(settings|hooks|agents|commands|skills)|\\.codex/|\\.cursor/|claude_desktop_config\\.json|mcp\\.json|AGENTS\\.md|CLAUDE\\.md|\\.cursorrules)",
+        "(writeFile(Sync)?\\(|appendFile(Sync)?\\(|\\bopen\\([^)\\n]*['\\\"][wa]\\+?['\\\"]|write_text\\(|\\.write\\()[^\\n]{0,160}(\\.claude/(settings|hooks|agents|commands|skills)|\\.codex/|\\.cursor/|claude_desktop_config\\.json|mcp\\.json|AGENTS\\.md|CLAUDE\\.md|\\.cursorrules)"
+      ],
+      "confidence": 0.65
+    },
+    {
+      "id": "AMT-INJECT-001",
+      "title": "Instruction override",
+      "severity": "high",
+      "category": "prompt-injection",
+      "description": "Tells the model to ignore its previous instructions.",
+      "file_kinds": [
+        "markdown",
+        "text",
+        "config"
+      ],
+      "patterns": [
+        "\\bignore\\s+(all\\s+|any\\s+)?(of\\s+)?(the\\s+|your\\s+)?(previous|prior|above|earlier|preceding|system)\\s+(instructions|rules|guidelines|directions|prompts?)",
+        "\\bdisregard\\s+(all\\s+|any\\s+)?(the\\s+|your\\s+)?(previous|prior|above|earlier|system)\\s+(instructions|rules|guidelines|prompts?)",
+        "\\b(new|updated|real)\\s+system\\s+prompt\\s*:",
+        "\\byou\\s+are\\s+no\\s+longer\\s+(bound|restricted|limited)\\b"
+      ],
+      "confidence": 0.75
+    },
+    {
+      "id": "AMT-INJECT-002",
+      "title": "Concealment from the user",
+      "severity": "high",
+      "category": "prompt-injection",
+      "description": "Tells the agent to hide what it does from the user.",
+      "file_kinds": [
+        "markdown",
+        "text",
+        "config"
+      ],
+      "patterns": [
+        "\\b(do\\s+not|don't|never)\\s+(tell|inform|notify|alert)\\s+(the\\s+)?(user|human|operator)\\s+(about|of)\\b",
+        "\\b(do\\s+not|don't|never)\\s+(mention|reveal|show|disclose)\\s+(this|it|that|these|anything)\\s+(step\\s+|action\\s+)?(to\\s+)?(the\\s+)?(user|human|operator)",
+        "\\b(do\\s+not|don't|never)\\s+(let|allow)\\s+the\\s+(user|human)\\s+(know|see|notice)\\b",
+        "\\bwithout\\s+(telling|informing|notifying|alerting)\\s+(the\\s+)?(user|human|operator)",
+        "\\b(keep|hide)\\s+(this|it|these)\\s+(secret|hidden)\\s+from\\s+(the\\s+)?(user|human)",
+        "\\bsilently\\s+(run|execute|install|download|send|upload|delete|modify|post)\\b"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "AMT-INJECT-003",
+      "title": "Oversight loosening",
+      "severity": "high",
+      "category": "oversight",
+      "description": "Turns off or tells the agent to skip permission prompts, sandboxing or confirmation.",
+      "patterns": [
+        "--dangerously-skip-permissions",
+        "--dangerously-bypass-approvals-and-sandbox",
+        "\\bbypassPermissions\\b",
+        "\\s--yolo\\b",
+        "\\b(do\\s+not|don't|never)\\s+(ask|wait)\\s+(the\\s+user\\s+)?(for\\s+)?(permission|confirmation|approval)",
+        "\\bwithout\\s+(asking\\s+(for\\s+)?)?(permission|confirmation|approval)\\b",
+        "\\bauto-?approve\\s+(all|every|everything)\\b",
+        "\\b(disable|turn\\s+off|skip|bypass)\\s+(the\\s+)?(sandbox|safety\\s+checks?|permission\\s+(prompts?|checks?)|guardrails)\\b"
+      ],
+      "confidence": 0.7,
+      "references": [
+        "https://arxiv.org/abs/2610.37734"
+      ]
+    },
+    {
+      "id": "AMT-INJECT-004",
+      "title": "Mutable external instructions",
+      "severity": "medium",
+      "category": "external-instructions",
+      "description": "Tells the agent to follow instructions fetched from a URL. The page can change after this add-on was reviewed, so a clean scan today says nothing about tomorrow.",
+      "remediation": "Copy the needed instructions into the add-on and review them; pin any external resource by hash.",
+      "file_kinds": [
+        "markdown",
+        "text",
+        "config"
+      ],
+      "patterns": [
+        "\\b(follow|read|fetch|load|use|apply|execute|run)\\s+(the\\s+)?(latest\\s+|current\\s+|up-to-date\\s+|official\\s+)?(instructions|steps|setup(\\s+(guide|instructions|steps))?|documentation|docs|guide|commands|install(ation)?\\s+(guide|instructions|steps))\\s+(at|from|in|on|here:?)\\s*<?\\(?https?://",
+        "\\b(fetch|curl|download|retrieve|read|open)\\s+[^\\n]{0,80}https?://[^\\n]{0,160}\\b(and|then)\\s+(follow|execute|run|apply)\\b"
+      ],
+      "confidence": 0.5,
+      "references": [
+        "https://thehackernews.com/2026/06/fake-ai-agent-skill-passed-security.html"
+      ]
+    },
+    {
+      "id": "AMT-SUPPLY-001",
+      "title": "Package registry override",
+      "severity": "high",
+      "category": "supply-chain",
+      "description": "Points a package manager at a non-default registry. Attackers frame this as an internal corporate mirror to serve malicious packages.",
+      "patterns": [
+        "\\bregistry\\s*=\\s*https?://",
+        "\\bnpm\\s+config\\s+set\\s+registry\\b",
+        "\\byarn\\s+config\\s+set\\s+(npmRegistryServer|registry)\\b",
+        "(--index-url|--extra-index-url)[\\s=]+https?://",
+        "\\bindex-url\\s*=\\s*https?://",
+        "\\bpip3?\\s+config\\s+set\\s+global\\.(extra-)?index-url\\b",
+        "\\b(PIP_INDEX_URL|PIP_EXTRA_INDEX_URL|NPM_CONFIG_REGISTRY|UV_INDEX_URL)\\s*=",
+        "\\b(GOINSECURE|GONOSUMDB|GONOSUMCHECK|GOPRIVATE)\\s*=",
+        "\\bGOPROXY\\s*="
+      ],
+      "exclude_patterns": [
+        "https://registry\\.npmjs\\.org/?(\\s|$|\\\")",
+        "https://pypi\\.org/simple/?(\\s|$|\\\")",
+        "https://registry\\.yarnpkg\\.com/?(\\s|$|\\\")",
+        "GOPROXY\\s*=\\s*\\\"?https://proxy\\.golang\\.org"
+      ],
+      "confidence": 0.65,
+      "references": [
+        "https://blog.trailofbits.com/2026/06/03/the-sorry-state-of-skill-distribution/"
+      ]
+    },
+    {
+      "id": "AMT-SUPPLY-002",
+      "title": "Package installed from a URL or git",
+      "severity": "medium",
+      "category": "supply-chain",
+      "description": "Installs a package straight from a URL or repository, bypassing registry checks and version pinning.",
+      "patterns": [
+        "\\bpip3?\\s+install\\s+[^\\n]*(git\\+|https?://)",
+        "\\b(npm|pnpm|yarn)\\s+(install|i|add)\\s+[^\\n]*(https?://|git\\+|github:)",
+        "\\buv\\s+pip\\s+install\\s+[^\\n]*(git\\+|https?://)"
+      ],
+      "confidence": 0.55
+    },
+    {
+      "id": "AMT-SUPPLY-003",
+      "title": "Unpinned package execution",
+      "severity": "low",
+      "category": "supply-chain",
+      "description": "Runs the latest version of a package every time, so what runs can change without the add-on changing.",
+      "remediation": "Pin an exact version (package@1.2.3).",
+      "file_kinds": [
+        "config",
+        "script"
+      ],
+      "patterns": [
+        "\\b(npx|bunx|uvx|pipx\\s+run)\\s+(-y\\s+|--yes\\s+)?(@[a-z0-9._-]+/)?[a-z0-9._-]+(\\s|$|[\\\"',])",
+        "@latest\\b"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "AMT-SUPPLY-004",
+      "title": "Fake prerequisite download",
+      "severity": "high",
+      "category": "supply-chain",
+      "description": "Asks the user or agent to download an installer as a 'prerequisite', the delivery trick used by the ClawHavoc campaign.",
+      "file_kinds": [
+        "markdown",
+        "text",
+        "config"
+      ],
+      "patterns": [
+        "\\b(prerequisite|required|requirement|before\\s+(using|you\\s+start)|first,?\\s+install)[^\\n]{0,160}\\b(download|install|run)\\b[^\\n]{0,160}\\.(zip|dmg|pkg|exe|msi|sh|command|app)\\b",
+        "\\b(glot\\.io|rentry\\.co|paste\\.ee|hastebin\\.com|controlc\\.com)\\b"
+      ],
+      "confidence": 0.55,
+      "references": [
+        "https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html"
+      ]
+    },
+    {
+      "id": "AMT-OBF-001",
+      "title": "Dynamic import or code construction",
+      "severity": "medium",
+      "category": "obfuscation",
+      "description": "Builds or imports code at runtime in a way that hides what will run.",
+      "file_kinds": [
+        "script",
+        "text"
+      ],
+      "patterns": [
+        "\\b__import__\\(\\s*['\\\"](os|subprocess|socket|ctypes|pty)['\\\"]\\s*\\)\\.",
+        "\\bgetattr\\(\\s*__import__\\(",
+        "\\bnew\\s+Function\\s*\\(",
+        "\\beval\\s*\\(\\s*compile\\s*\\("
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "AMT-OBF-002",
+      "title": "Library injection",
+      "severity": "medium",
+      "category": "obfuscation",
+      "description": "Forces a shared library into other processes. Some legitimate tools do this; review why.",
+      "patterns": [
+        "\\bLD_PRELOAD\\s*=",
+        "\\bDYLD_INSERT_LIBRARIES\\s*="
+      ],
+      "confidence": 0.4
+    },
+    {
+      "id": "AMT-MCP-001",
+      "title": "MCP server launched through a shell download",
+      "severity": "high",
+      "category": "mcp",
+      "description": "An MCP server entry runs a shell that downloads code.",
+      "file_kinds": [
+        "config"
+      ],
+      "patterns": [
+        "\\\"command\\\"\\s*:\\s*\\\"(/bin/|/usr/bin/)?(ba|z)?sh\\\"",
+        "\\b(curl|wget)\\b"
+      ],
+      "match": "all",
+      "confidence": 0.7
+    },
+    {
+      "id": "AMT-MCP-002",
+      "title": "Remote MCP server over plain HTTP",
+      "severity": "medium",
+      "category": "mcp",
+      "description": "Tool definitions and data travel unencrypted and can be modified in transit.",
+      "file_kinds": [
+        "config"
+      ],
+      "patterns": [
+        "\\\"(url|serverUrl|endpoint)\\\"\\s*:\\s*\\\"http://"
+      ],
+      "exclude_patterns": [
+        "http://(localhost|127\\.0\\.0\\.1|\\[::1\\])"
+      ],
+      "confidence": 0.6
+    }
+  ]
+}
