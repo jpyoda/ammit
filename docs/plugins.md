@@ -24,6 +24,7 @@ and expects one response:
    "message": "...", "file": "SKILL.md", "line": 4, "evidence": "...", "confidence": 0.7}]}}
 ```
 
+* `params.findings` holds the built-in analyzers' findings, as context: plugins run after them.
 * Files arrive **normalized** (see [rules.md](rules.md)). `derived: true` marks content the
   normalizer produced, such as decoded base64; `parent` points at its source.
 * Return `{"error": {"code": ..., "message": ...}}` on failure. Errors, crashes, invalid JSON and
@@ -32,6 +33,9 @@ and expects one response:
 * A plugin runs with ammit's own permissions. Keep dependencies minimal and pinned.
 
 ## LLM plugins and prompt injection
+
+ammit's own judge, `ammit-judge`, is a plugin built this way; see [judge.md](judge.md).
+
 
 The content you send to a model is written by a potential attacker. Keep it
 separate from your instructions, tell the model it is data, never let the

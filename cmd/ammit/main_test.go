@@ -3,8 +3,12 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"net/http"
+	"net/http/httptest"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 )
@@ -103,5 +107,83 @@ func TestDiscover(t *testing.T) {
 	out.Reset()
 	if code := run([]string{"discover", "--home", home, "--scan", "--format", "json"}, &out, &errb); code != 1 {
 		t.Errorf("discover --scan should exit 1 on the malicious skill, got %d", code)
+	}
+}
+
+// fakeAnthropic answers the Messages API. status != 200 simulates an API failure.
+func fakeAnthropic(t *testing.T, status int, answer string) string {
+	t.Helper()
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if status != http.StatusOK {
+			w.WriteHeader(status)
+			w.Write([]byte(`{"error":{"type":"invalid_request_error","message":"simulated failure"}}`))
+			return
+		}
+		json.NewEncoder(w).Encode(map[string]any{
+			"content":     []map[string]string{{"type": "text", "text": answer}},
+			"stop_reason": "end_turn", "usage": map[string]int{"input_tokens": 100, "output_tokens": 20},
+		})
+	}))
+	t.Cleanup(srv.Close)
+	return srv.URL
+}
+
+func judgeOnPath(t *testing.T) {
+	t.Helper()
+	dir := t.TempDir()
+	name := "ammit-judge"
+	if runtime.GOOS == "windows" {
+		name += ".exe"
+	}
+	cmd := exec.Command("go", "build", "-o", filepath.Join(dir, name), "./cmd/ammit-judge")
+	cmd.Dir = filepath.Join("..", "..")
+	if out, err := cmd.CombinedOutput(); err != nil {
+		t.Fatalf("build ammit-judge: %v\n%s", err, out)
+	}
+	t.Setenv("PATH", dir+string(os.PathListSeparator)+os.Getenv("PATH"))
+}
+
+func TestJudgeEndToEnd(t *testing.T) {
+	judgeOnPath(t)
+	ans := `{"declared_purpose":"format text","observed_behavior":"posts the environment","findings":[{"category":"exfiltration","severity":"critical","file":"scripts/format.py","quote":"payload = json.dumps(dict(os.environ))","reason":"Serializes every environment variable for upload."}],"manipulation_attempts":[]}`
+	t.Setenv("ANTHROPIC_BASE_URL", fakeAnthropic(t, http.StatusOK, ans))
+	t.Setenv("ANTHROPIC_API_KEY", "test-key")
+	var out, errb bytes.Buffer
+	run([]string{"scan", "--judge", "--format", "json", "--fail-on", "none", fixture("env-exfil")}, &out, &errb)
+	var r struct {
+		Findings []struct {
+			RuleID   string `json:"rule_id"`
+			Analyzer string `json:"analyzer"`
+			Severity string `json:"severity"`
+		} `json:"findings"`
+		Errors []string `json:"errors"`
+	}
+	if err := json.Unmarshal(out.Bytes(), &r); err != nil {
+		t.Fatalf("%v\n%s\n%s", err, out.String(), errb.String())
+	}
+	found := false
+	for _, f := range r.Findings {
+		if f.RuleID == "AMT-JUDGE-EXFIL" && f.Analyzer == "judge" && f.Severity == "critical" {
+			found = true
+		}
+	}
+	if !found || len(r.Errors) != 0 {
+		t.Errorf("judge finding missing or errors present: %+v", r)
+	}
+}
+
+func TestJudgeFailureFailsClosed(t *testing.T) {
+	judgeOnPath(t)
+	t.Setenv("ANTHROPIC_BASE_URL", fakeAnthropic(t, http.StatusBadRequest, ""))
+	t.Setenv("ANTHROPIC_API_KEY", "test-key")
+	var out, errb bytes.Buffer
+	run([]string{"scan", "--judge", "--format", "json", "--fail-on", "none", fixture("benign-skill")}, &out, &errb)
+	var r struct {
+		Verdict string   `json:"verdict"`
+		Errors  []string `json:"errors"`
+	}
+	json.Unmarshal(out.Bytes(), &r)
+	if r.Verdict != "review" || len(r.Errors) == 0 {
+		t.Errorf("a failed judge must make the scan review, got %q %v", r.Verdict, r.Errors)
 	}
 }

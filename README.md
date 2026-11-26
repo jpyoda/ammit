@@ -66,6 +66,8 @@ ammit scan ~/.cursor/mcp.json          # a single config file
 ammit scan --format sarif --output ammit.sarif ./skills
 ammit scan --format json ./my-skill    # includes every external reference found
 
+ammit scan --judge ./my-skill          # add the LLM judge (needs ammit-judge and ANTHROPIC_API_KEY)
+
 ammit discover                         # list add-ons installed for Claude Code, Codex, Cursor, Gemini CLI, ...
 ammit discover --scan --format json    # scan them all (for MDM / osquery; runs nothing)
 ammit discover --project . --scan      # include the current project's .claude/, .mcp.json, AGENTS.md, ...
@@ -118,7 +120,8 @@ ammit is early. Milestone 1 (this release) is the static core.
 - [x] Bypass regression suite; laptop inventory (`ammit discover`)
 - [x] Benchmark harness and first baseline ([scores](docs/scores.md))
 - [x] False-positive tuning: 9.6% → 2.1% of benign add-ons blocked
-- [ ] LLM judge plugin, hardened against prompt injection in the scanned content
+- [x] LLM judge (`ammit-judge`, Claude Sonnet 5.5 by default), hardened against the content it reads ([docs](docs/judge.md))
+- [ ] Judge scores on the benchmarks and the red-team suite against the live model
 - [ ] Multi-language dataflow (tree-sitter): shell, JavaScript/TypeScript, Go
 - [ ] Repository context: history, author and fit, to cut false positives
 - [ ] Reference watching (Muninn): re-fetch every URL/repo/package and re-scan when it changes

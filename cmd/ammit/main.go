@@ -11,7 +11,10 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"os/exec"
 	"os/signal"
+	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
 
@@ -81,6 +84,9 @@ type common struct {
 	noDefault                                        bool
 	plugins                                          multiFlag
 	pluginTimeout                                    time.Duration
+	judge                                            bool
+	judgeModel                                       string
+	judgeRuns                                        int
 }
 
 func (c *common) register(fs *flag.FlagSet) {
@@ -93,6 +99,27 @@ func (c *common) register(fs *flag.FlagSet) {
 	fs.DurationVar(&c.pluginTimeout, "plugin-timeout", 2*time.Minute, "timeout per plugin run")
 	fs.StringVar(&c.baseDir, "base-dir", "", "make SARIF paths relative to this directory (default: current directory)")
 	fs.StringVar(&c.color, "color", "auto", "color text output: auto, always or never")
+	fs.BoolVar(&c.judge, "judge", false, "also ask the LLM judge (ammit-judge; needs ANTHROPIC_API_KEY; sends redacted add-on text to Anthropic)")
+	fs.StringVar(&c.judgeModel, "judge-model", "claude-sonnet-5-5", "Claude model for --judge")
+	fs.IntVar(&c.judgeRuns, "judge-runs", 2, "independent judge runs; high findings need agreement")
+}
+
+// findJudge locates ammit-judge next to this binary, then on PATH.
+func findJudge() (string, error) {
+	name := "ammit-judge"
+	if runtime.GOOS == "windows" {
+		name += ".exe"
+	}
+	if self, err := os.Executable(); err == nil {
+		cand := filepath.Join(filepath.Dir(self), name)
+		if _, err := os.Stat(cand); err == nil {
+			return cand, nil
+		}
+	}
+	if p, err := exec.LookPath(name); err == nil {
+		return p, nil
+	}
+	return "", fmt.Errorf("--judge needs the ammit-judge binary next to ammit or on PATH (go install github.com/jpyoda/ammit/cmd/ammit-judge@latest)")
 }
 
 func loadRules(c *common) (*rules.Set, error) {
@@ -123,6 +150,21 @@ func (c *common) options() (scan.Options, error) {
 	for _, p := range c.plugins {
 		parts := strings.Fields(p)
 		o.Plugins = append(o.Plugins, analyzer.Plugin{Path: parts[0], Args: parts[1:], Timeout: c.pluginTimeout})
+	}
+	if c.judge {
+		if os.Getenv("ANTHROPIC_API_KEY") == "" {
+			return o, fmt.Errorf("--judge needs ANTHROPIC_API_KEY (nothing is sent without it)")
+		}
+		path, err := findJudge()
+		if err != nil {
+			return o, err
+		}
+		timeout := c.pluginTimeout
+		if timeout < 10*time.Minute {
+			timeout = 10 * time.Minute
+		}
+		o.Plugins = append(o.Plugins, analyzer.Plugin{Path: path, Timeout: timeout,
+			Args: []string{"--model", c.judgeModel, "--runs", fmt.Sprint(c.judgeRuns)}})
 	}
 	return o, nil
 }

@@ -51,9 +51,18 @@ func Artifact(ctx context.Context, a *ir.Artifact, o Options) *report.Report {
 	if o.Rules != nil {
 		as = append(as, rules.Analyzer{Set: o.Rules})
 	}
-	for _, p := range o.Plugins {
-		as = append(as, p)
-	}
 	res := analyzer.Run(ctx, a, as)
+	if len(o.Plugins) > 0 {
+		// Plugins (the LLM judge among them) run second, with the built-in
+		// findings as context. They can only add findings.
+		var ps []analyzer.Analyzer
+		for _, p := range o.Plugins {
+			p.Static = res.Findings
+			ps = append(ps, p)
+		}
+		more := analyzer.Run(ctx, a, ps)
+		res.Findings = append(res.Findings, more.Findings...)
+		res.Errors = append(res.Errors, more.Errors...)
+	}
 	return report.Build(o.Version, a, res)
 }

@@ -16,7 +16,7 @@ import (
 // Plugin runs an out-of-process analyzer. ammit writes one JSON-RPC 2.0
 // request to the plugin's stdin and reads one response from its stdout:
 //
-//	-> {"jsonrpc":"2.0","id":1,"method":"analyze","params":{"artifact":{...IR...}}}
+//	-> {"jsonrpc":"2.0","id":1,"method":"analyze","params":{"artifact":{...IR...},"findings":[...]}}
 //	<- {"jsonrpc":"2.0","id":1,"result":{"findings":[...]}}
 //
 // Plugins can be written in any language (the LLM judge and the Python
@@ -25,6 +25,9 @@ type Plugin struct {
 	Path    string
 	Args    []string
 	Timeout time.Duration
+	// Static holds the built-in analyzers' findings, sent to the plugin as
+	// context. Plugins run after the built-in analyzers.
+	Static []finding.Finding
 }
 
 func (p Plugin) Name() string { return "plugin:" + filepath.Base(p.Path) }
@@ -37,7 +40,8 @@ type rpcRequest struct {
 }
 
 type rpcParams struct {
-	Artifact *ir.Artifact `json:"artifact"`
+	Artifact *ir.Artifact      `json:"artifact"`
+	Findings []finding.Finding `json:"findings,omitempty"`
 }
 
 type rpcResponse struct {
@@ -62,7 +66,7 @@ func (p Plugin) Analyze(ctx context.Context, a *ir.Artifact) ([]finding.Finding,
 	ctx, cancel := context.WithTimeout(ctx, timeout)
 	defer cancel()
 
-	req, err := json.Marshal(rpcRequest{JSONRPC: "2.0", ID: 1, Method: "analyze", Params: rpcParams{Artifact: a}})
+	req, err := json.Marshal(rpcRequest{JSONRPC: "2.0", ID: 1, Method: "analyze", Params: rpcParams{Artifact: a, Findings: p.Static}})
 	if err != nil {
 		return nil, err
 	}
