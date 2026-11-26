@@ -5,7 +5,8 @@
 // is reported and scanned as configuration, not executed.
 //
 // The location list is best effort and agents move things between
-// releases. Contributions for more agents are welcome (docs/discover.md).
+// releases. It was cross-checked against Snyk agent-scan's list of known
+// clients (November 2026). Contributions are welcome (docs/discover.md).
 package discover
 
 import (
@@ -18,7 +19,7 @@ import (
 
 // Location is a place where an agent keeps add-ons.
 type Location struct {
-	Agent string // claude-code, claude-desktop, codex, cursor, gemini-cli, vscode, windsurf, project
+	Agent string // claude-code, codex, cursor, gemini-cli, copilot-cli, openclaw, ..., or project
 	What  string // skills, plugins, agents, commands, mcp-config, settings, instructions
 	// Glob relative to the base (home or project). Each match is one
 	// add-on: a directory (skill, plugin) or a file (config, instructions).
@@ -53,6 +54,20 @@ func homeLocations() []Location {
 		{"gemini-cli", "instructions", ".gemini/GEMINI.md"},
 		{"gemini-cli", "extensions", ".gemini/extensions/*"},
 		{"windsurf", "mcp-config", ".codeium/windsurf/mcp_config.json"},
+		{"windsurf", "skills", ".codeium/windsurf/skills/*"},
+		{"cursor", "skills", ".cursor/skills/*"},
+		{"gemini-cli", "skills", ".gemini/skills/*"},
+		{"antigravity", "mcp-config", ".gemini/antigravity/mcp_config.json"},
+		{"copilot-cli", "skills", ".copilot/skills/*"},
+		{"copilot-cli", "mcp-config", ".copilot/mcp-config.json"},
+		{"vscode", "mcp-config", ".vscode/mcp.json"},
+		{"amazon-q", "mcp-config", ".aws/amazonq/mcp.json"},
+		{"amazon-q", "agents", ".aws/amazonq/agents/*.json"},
+		{"kiro", "mcp-config", ".kiro/settings/mcp.json"},
+		{"openclaw", "skills", ".openclaw/skills/*"},
+		{"openclaw", "skills", ".openclaw/workspace/skills/*"},
+		{"openclaw", "skills", ".clawdbot/skills/*"},
+		{"agents", "skills", ".config/agents/skills/*"},
 	}
 	switch runtime.GOOS {
 	case "darwin":
@@ -87,6 +102,10 @@ func projectLocations() []Location {
 		{"project", "instructions", ".cursor/rules"},
 		{"project", "instructions", ".github/copilot-instructions.md"},
 		{"project", "skills", ".agents/skills/*"},
+		{"project", "skills", ".cursor/skills/*"},
+		{"project", "skills", ".gemini/skills/*"},
+		{"project", "skills", ".amp/skills/*"},
+		{"project", "skills", ".openclaw/skills/*"},
 	}
 }
 

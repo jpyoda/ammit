@@ -2,3 +2,6 @@ bin/
 *.sarif
 /ammit
 .DS_Store
+.bench-cache/
+.bench-work/
+__pycache__/

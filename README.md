@@ -114,6 +114,7 @@ ammit is early. Milestone 1 (this release) is the static core.
 
 - [x] Core CLI, IR, normalizer, rule engine, SARIF/JSON output, GitHub Action
 - [x] Bypass regression suite; laptop inventory (`ammit discover`)
+- [x] Benchmark harness and first baseline ([scores](docs/scores.md))
 - [ ] LLM judge plugin, hardened against prompt injection in the scanned content
 - [ ] Multi-language dataflow (tree-sitter): shell, JavaScript/TypeScript, Go
 - [ ] Repository context: history, author and fit, to cut false positives

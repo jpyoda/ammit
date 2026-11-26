@@ -1,0 +1,2756 @@
+{
+  "created_at": "2026-11-26T13:43:44+00:00",
+  "ammit": {
+    "version": "ammit dev",
+    "rules_sha256": "8c07d67eeffbcaafd6bfcfb784f4138ec29cae83a72060e6f07fcc8b078f5fab"
+  },
+  "scan_args": "",
+  "sample_fraction": 1.0,
+  "milestone": false,
+  "datasets": [
+    {
+      "id": "benign:anthropics/skills",
+      "revision": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+      "samples": 15,
+      "population_sha256": "604aa998efe15557d47175a7b6ed497c4cdd23dc904de346cef342238fe1ac65",
+      "selection": {
+        "split": "benign",
+        "partition": "dev"
+      }
+    },
+    {
+      "id": "benign:openai/skills",
+      "revision": "49f948faa9258a0c61caceaf225e179651397431",
+      "samples": 35,
+      "population_sha256": "5ac6591add59059d2e055f36e7346038c88026b81b93a038f5540a2713301427",
+      "selection": {
+        "split": "benign",
+        "partition": "dev"
+      }
+    },
+    {
+      "id": "benign:NVIDIA/skills",
+      "revision": "f9e407149dc68eedc6dc3b51f39db1217d459267",
+      "samples": 456,
+      "population_sha256": "6ce38b9d455450ad575d80c62da2043892a61ecc67d00cc12c7260f0a61d9f4a",
+      "selection": {
+        "split": "benign",
+        "partition": "dev"
+      }
+    },
+    {
+      "id": "benign:vercel-labs/agent-skills",
+      "revision": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+      "samples": 7,
+      "population_sha256": "9d64b91faa373136c18864f1ab8eb70c33af756397e08c84f8e776d454dac441",
+      "selection": {
+        "split": "benign",
+        "partition": "dev"
+      }
+    },
+    {
+      "id": "benign:github/awesome-copilot",
+      "revision": "93fc8b9ee3ef56b9b5e7261e6ce92d314cb2c1cf",
+      "samples": 632,
+      "population_sha256": "97df0089082885e267d9d1fceb9e724630d4572fa10de910c5a3ec8436b613ea",
+      "selection": {
+        "split": "benign",
+        "partition": "dev"
+      }
+    },
+    {
+      "id": "benign:microsoft/skills",
+      "revision": "47eb3888eb42aef074fcb617931bf6e5934e45d9",
+      "samples": 158,
+      "population_sha256": "ab38e8e956ded8828d7f98a9a7a638a32974a17e79f7b942d8464c5e4a5886c9",
+      "selection": {
+        "split": "benign",
+        "partition": "dev"
+      }
+    },
+    {
+      "id": "benign:huggingface/skills",
+      "revision": "58cdf1745d1d51748e38d1520cdc25898579c22f",
+      "samples": 15,
+      "population_sha256": "5a5d83413a053b74dbed22a483ba7bb520f0865f4098811acc2990cecf035ad0",
+      "selection": {
+        "split": "benign",
+        "partition": "dev"
+      }
+    }
+  ],
+  "scorecard": {
+    "overall": {
+      "flagged": {
+        "tp": 0,
+        "fp": 509,
+        "tn": 809,
+        "fn": 0,
+        "recall": {
+          "hits": 0,
+          "total": 0,
+          "value": null,
+          "ci95": [
+            0.0,
+            1.0
+          ]
+        },
+        "precision": {
+          "hits": 0,
+          "total": 509,
+          "value": 0.0,
+          "ci95": [
+            0.0,
+            0.0074905387515427505
+          ]
+        },
+        "false_positive_rate": {
+          "hits": 509,
+          "total": 1318,
+          "value": 0.38619119878603947,
+          "ci95": [
+            0.36027307240152445,
+            0.41277081421733636
+          ]
+        },
+        "f1": null
+      },
+      "blocked": {
+        "tp": 0,
+        "fp": 126,
+        "tn": 1192,
+        "fn": 0,
+        "recall": {
+          "hits": 0,
+          "total": 0,
+          "value": null,
+          "ci95": [
+            0.0,
+            1.0
+          ]
+        },
+        "precision": {
+          "hits": 0,
+          "total": 126,
+          "value": 0.0,
+          "ci95": [
+            1.734723475976807e-18,
+            0.02958576448219845
+          ]
+        },
+        "false_positive_rate": {
+          "hits": 126,
+          "total": 1318,
+          "value": 0.09559939301972686,
+          "ci95": [
+            0.08087977579963318,
+            0.11266950131938527
+          ]
+        },
+        "f1": null
+      }
+    },
+    "groups": {
+      "dataset": {
+        "benign:NVIDIA/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 410,
+            "tn": 46,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 410,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.009282440748302413
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 410,
+              "total": 456,
+              "value": 0.8991228070175439,
+              "ci95": [
+                0.8680609468466997,
+                0.9235162218007545
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 80,
+            "tn": 376,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 80,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.0458181295355271
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 80,
+              "total": 456,
+              "value": 0.17543859649122806,
+              "ci95": [
+                0.1432812986649015,
+                0.2130185861712345
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:anthropics/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 1,
+            "tn": 14,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 1,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.7934506856227626
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 1,
+              "total": 15,
+              "value": 0.06666666666666667,
+              "ci95": [
+                0.011866895493268553,
+                0.2981652987378003
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 1,
+            "tn": 14,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 1,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.7934506856227626
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 1,
+              "total": 15,
+              "value": 0.06666666666666667,
+              "ci95": [
+                0.011866895493268553,
+                0.2981652987378003
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:github/awesome-copilot": {
+          "flagged": {
+            "tp": 0,
+            "fp": 69,
+            "tn": 563,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 69,
+              "value": 0.0,
+              "ci95": [
+                3.469446951953614e-18,
+                0.05273725818905173
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 69,
+              "total": 632,
+              "value": 0.10917721518987342,
+              "ci95": [
+                0.08718350700550678,
+                0.13589326292354106
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 28,
+            "tn": 604,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 28,
+              "value": 0.0,
+              "ci95": [
+                1.3877787807814457e-17,
+                0.12064330476584563
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 28,
+              "total": 632,
+              "value": 0.04430379746835443,
+              "ci95": [
+                0.030827790481866246,
+                0.06328601413176038
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:huggingface/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 5,
+            "tn": 10,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 5,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.43448246478317476
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 5,
+              "total": 15,
+              "value": 0.3333333333333333,
+              "ci95": [
+                0.1517632443971473,
+                0.5828645226148023
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 4,
+            "tn": 11,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 4,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.4898908364545973
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 4,
+              "total": 15,
+              "value": 0.26666666666666666,
+              "ci95": [
+                0.10897453325692374,
+                0.5195043405598057
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:microsoft/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 20,
+            "tn": 138,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 20,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.16112515805281938
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 20,
+              "total": 158,
+              "value": 0.12658227848101267,
+              "ci95": [
+                0.08345736652535352,
+                0.18743403015481697
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 10,
+            "tn": 148,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 10,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.2775327998628892
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 10,
+              "total": 158,
+              "value": 0.06329113924050633,
+              "ci95": [
+                0.03473843819243328,
+                0.11257522911149492
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:openai/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 4,
+            "tn": 31,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 4,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.4898908364545973
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 4,
+              "total": 35,
+              "value": 0.11428571428571428,
+              "ci95": [
+                0.04535179333097357,
+                0.2595146864621381
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 3,
+            "tn": 32,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 3,
+              "value": 0.0,
+              "ci95": [
+                5.551115123125783e-17,
+                0.5614970317550454
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 3,
+              "total": 35,
+              "value": 0.08571428571428572,
+              "ci95": [
+                0.02958236826696982,
+                0.22379273965896496
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:vercel-labs/agent-skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 7,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 0,
+              "total": 7,
+              "value": 0.0,
+              "ci95": [
+                5.551115123125783e-17,
+                0.35433043506668743
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 7,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 0,
+              "total": 7,
+              "value": 0.0,
+              "ci95": [
+                5.551115123125783e-17,
+                0.35433043506668743
+              ]
+            },
+            "f1": null
+          }
+        }
+      },
+      "provenance": {
+        "published": {
+          "flagged": {
+            "tp": 0,
+            "fp": 509,
+            "tn": 809,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 509,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.0074905387515427505
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 509,
+              "total": 1318,
+              "value": 0.38619119878603947,
+              "ci95": [
+                0.36027307240152445,
+                0.41277081421733636
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 126,
+            "tn": 1192,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 126,
+              "value": 0.0,
+              "ci95": [
+                1.734723475976807e-18,
+                0.02958576448219845
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 126,
+              "total": 1318,
+              "value": 0.09559939301972686,
+              "ci95": [
+                0.08087977579963318,
+                0.11266950131938527
+              ]
+            },
+            "f1": null
+          }
+        }
+      },
+      "source": {
+        "benign:NVIDIA/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 410,
+            "tn": 46,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 410,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.009282440748302413
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 410,
+              "total": 456,
+              "value": 0.8991228070175439,
+              "ci95": [
+                0.8680609468466997,
+                0.9235162218007545
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 80,
+            "tn": 376,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 80,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.0458181295355271
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 80,
+              "total": 456,
+              "value": 0.17543859649122806,
+              "ci95": [
+                0.1432812986649015,
+                0.2130185861712345
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:anthropics/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 1,
+            "tn": 14,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 1,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.7934506856227626
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 1,
+              "total": 15,
+              "value": 0.06666666666666667,
+              "ci95": [
+                0.011866895493268553,
+                0.2981652987378003
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 1,
+            "tn": 14,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 1,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.7934506856227626
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 1,
+              "total": 15,
+              "value": 0.06666666666666667,
+              "ci95": [
+                0.011866895493268553,
+                0.2981652987378003
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:github/awesome-copilot": {
+          "flagged": {
+            "tp": 0,
+            "fp": 69,
+            "tn": 563,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 69,
+              "value": 0.0,
+              "ci95": [
+                3.469446951953614e-18,
+                0.05273725818905173
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 69,
+              "total": 632,
+              "value": 0.10917721518987342,
+              "ci95": [
+                0.08718350700550678,
+                0.13589326292354106
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 28,
+            "tn": 604,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 28,
+              "value": 0.0,
+              "ci95": [
+                1.3877787807814457e-17,
+                0.12064330476584563
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 28,
+              "total": 632,
+              "value": 0.04430379746835443,
+              "ci95": [
+                0.030827790481866246,
+                0.06328601413176038
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:huggingface/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 5,
+            "tn": 10,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 5,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.43448246478317476
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 5,
+              "total": 15,
+              "value": 0.3333333333333333,
+              "ci95": [
+                0.1517632443971473,
+                0.5828645226148023
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 4,
+            "tn": 11,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 4,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.4898908364545973
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 4,
+              "total": 15,
+              "value": 0.26666666666666666,
+              "ci95": [
+                0.10897453325692374,
+                0.5195043405598057
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:microsoft/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 20,
+            "tn": 138,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 20,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.16112515805281938
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 20,
+              "total": 158,
+              "value": 0.12658227848101267,
+              "ci95": [
+                0.08345736652535352,
+                0.18743403015481697
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 10,
+            "tn": 148,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 10,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.2775327998628892
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 10,
+              "total": 158,
+              "value": 0.06329113924050633,
+              "ci95": [
+                0.03473843819243328,
+                0.11257522911149492
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:openai/skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 4,
+            "tn": 31,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 4,
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.4898908364545973
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 4,
+              "total": 35,
+              "value": 0.11428571428571428,
+              "ci95": [
+                0.04535179333097357,
+                0.2595146864621381
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 3,
+            "tn": 32,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 3,
+              "value": 0.0,
+              "ci95": [
+                5.551115123125783e-17,
+                0.5614970317550454
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 3,
+              "total": 35,
+              "value": 0.08571428571428572,
+              "ci95": [
+                0.02958236826696982,
+                0.22379273965896496
+              ]
+            },
+            "f1": null
+          }
+        },
+        "benign:vercel-labs/agent-skills": {
+          "flagged": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 7,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 0,
+              "total": 7,
+              "value": 0.0,
+              "ci95": [
+                5.551115123125783e-17,
+                0.35433043506668743
+              ]
+            },
+            "f1": null
+          },
+          "blocked": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 7,
+            "fn": 0,
+            "recall": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "precision": {
+              "hits": 0,
+              "total": 0,
+              "value": null,
+              "ci95": [
+                0.0,
+                1.0
+              ]
+            },
+            "false_positive_rate": {
+              "hits": 0,
+              "total": 7,
+              "value": 0.0,
+              "ci95": [
+                5.551115123125783e-17,
+                0.35433043506668743
+              ]
+            },
+            "f1": null
+          }
+        }
+      }
+    },
+    "errors": []
+  },
+  "false_positive_rules": [
+    [
+      "AMT-EVADE-007",
+      397
+    ],
+    [
+      "AMT-INJECT-010",
+      101
+    ],
+    [
+      "AMT-INJECT-003",
+      64
+    ],
+    [
+      "AMT-CRED-001",
+      30
+    ],
+    [
+      "AMT-EXEC-001",
+      16
+    ],
+    [
+      "AMT-SUPPLY-001",
+      14
+    ],
+    [
+      "AMT-SUPPLY-003",
+      11
+    ],
+    [
+      "AMT-INJECT-002",
+      7
+    ],
+    [
+      "AMT-SUPPLY-002",
+      5
+    ],
+    [
+      "AMT-EVADE-004",
+      5
+    ],
+    [
+      "AMT-PERSIST-001",
+      4
+    ],
+    [
+      "AMT-REF-001",
+      3
+    ],
+    [
+      "AMT-PERSIST-002",
+      3
+    ],
+    [
+      "AMT-SUPPLY-004",
+      3
+    ],
+    [
+      "AMT-EXEC-007",
+      2
+    ],
+    [
+      "AMT-INJECT-004",
+      2
+    ],
+    [
+      "AMT-INJECT-001",
+      2
+    ],
+    [
+      "AMT-SECRET-001",
+      2
+    ],
+    [
+      "AMT-EXFIL-001",
+      2
+    ],
+    [
+      "AMT-EXEC-004",
+      1
+    ],
+    [
+      "AMT-OBF-002",
+      1
+    ],
+    [
+      "AMT-EXEC-011",
+      1
+    ]
+  ],
+  "false_positives": [
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-aes-gcm",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-argp",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-argus",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-bare-metal-deployment",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-bench",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-bf3-deployment",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-comm-channel-admin",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-common",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-compress",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-devemu",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-dma",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-dms",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-dts",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-eth",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-firefly",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-flow",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-flow-tune",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-gpunetio",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-mgmt",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-ngauge",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-pcc",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-public-knowledge-map",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-PERSIST-002"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-rdma",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-rmax",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-sha",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-sha-offload-engine",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-socket-relay",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-sta",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-telemetry",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-telemetry-exporter",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-telemetry-traceback-application",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-telemetry-utils",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-upgrade",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-urom",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-urom-svc",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-verbs",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-doca-plugin/skills/doca-version",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-nvflare/skills/nvflare-autofl",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-nvflare/skills/nvflare-autofl-report",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-nvflare/skills/nvflare-convert-huggingface",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-SUPPLY-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-nvflare/skills/nvflare-convert-pytorch",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-003",
+        "AMT-SUPPLY-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-nvflare/skills/nvflare-fed-stats",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-EXEC-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-nvflare/skills/nvflare-orient",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-nvflare/skills/nvflare-shared",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-data-io",
+      "verdict": "block",
+      "rules": [
+        "AMT-CRED-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-finetune-huggingface-model",
+      "verdict": "block",
+      "rules": [
+        "AMT-INJECT-003",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-generate-image-grounding",
+      "verdict": "review",
+      "rules": [
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-generate-video-reasoning-annotations",
+      "verdict": "review",
+      "rules": [
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-launch-workflow",
+      "verdict": "block",
+      "rules": [
+        "AMT-CRED-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-port-huggingface-model",
+      "verdict": "review",
+      "rules": [
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-run-deft-aoi-cosmos3",
+      "verdict": "block",
+      "rules": [
+        "AMT-CRED-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-run-deft-object-detection",
+      "verdict": "block",
+      "rules": [
+        "AMT-INJECT-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-run-on-kubernetes",
+      "verdict": "block",
+      "rules": [
+        "AMT-CRED-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-run-on-slurm",
+      "verdict": "block",
+      "rules": [
+        "AMT-CRED-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-setup",
+      "verdict": "block",
+      "rules": [
+        "AMT-CRED-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-token-efficient-execution",
+      "verdict": "block",
+      "rules": [
+        "AMT-CRED-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:plugins/nvidia-tao-toolkit/skills/tao-train-codetr",
+      "verdict": "review",
+      "rules": [
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/accelerated-computing-cudf",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/ambient-healthcare-agent-with-nemotron-voice-agent",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/amc-run-sample-calibration",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/amc-run-video-calibration",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/amc-setup-calibration-stack",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bioir-make-data-pipeline",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bioir-model-onboard",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-codonfm-embed",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-SUPPLY-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-codonfm-setup",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-SUPPLY-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-complexa-evaluate-pdbs",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-complexa-target",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-cuequivariance",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-cuequivariance-jax",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-cupotential-benchmark",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-cupotential-custom-potentials",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-cupotential-install",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-cupotential-openmm",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-cupotential-validate",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-evo2-nim",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-genmol-nim",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-genomics-workflow-acceleration",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-kermt-add-cmim-pretrain",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-002"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-kermt-embed",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-kermt-finetune",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-kermt-infer",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-kermt-monitor",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-molmim-nim",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-nvmolkit-usage",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-openfold3-nim",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-parabricks",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-proteinmpnn-nim",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-rfd4-proteina-nim",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/bionemo-rfdiffusion-nim",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cccl",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cdf-anomalygen",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cdf-auto-labeling",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cdf-autonomous-vehicle-dataset-generation",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cdf-curation-and-retrieval",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cdf-defect-image-generation",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cdf-event-video-generation",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-002"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cdf-image-attribute-augmentation",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cdf-orchestration-preflight",
+      "verdict": "block",
+      "rules": [
+        "AMT-CRED-001",
+        "AMT-EVADE-007",
+        "AMT-INJECT-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cdf-orchestration-setup",
+      "verdict": "block",
+      "rules": [
+        "AMT-CRED-001",
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cdf-orchestration-write-dag",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cdf-simulation",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cdf-video-data-augmentation",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/compileiq-author-objective",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/compileiq-bootstrap",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/compileiq-debug",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/compileiq-run-search",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/compileiq-search-space",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/compileiq-validate-result",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-EXEC-011"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/compute-sanitizer-diagnose-cuda-bugs",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/convert-hf-to-te",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cuda-python",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-SUPPLY-001",
+        "AMT-SUPPLY-002"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cudaq-guide",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cudaq-importing",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cudnn-install",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cuml",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/cuopt-multi-objective-exploration",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/daqiri-onboarding",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/data-designer",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/deepstream-dev",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/deepstream-import-vision-model",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010",
+        "AMT-PERSIST-002"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/deepstream-profile-pipeline",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/dgx-spark-skills",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-003",
+        "AMT-PERSIST-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/dicom-metadata-extract",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/dicom-series-preflight",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/digital-health-clinical-asr-build",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/digital-health-clinical-asr-finetune",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/digital-health-clinical-asr-setup",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-aes-gcm",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-argp",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-argus",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-bench",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-bf3-deployment",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-bf4-deployment",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-caps",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-comm-channel-admin",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-compress",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-container-deployment",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-debug",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-dma",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-dms",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-dpa",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-dts",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-eth",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-flow",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-gpunetio",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-hardware-safety",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-mgmt",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-pcc",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-pipeline-language-developer-tools",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-programming-guide",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-rdma",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-rmax",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-setup",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-sha",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-sha-offload-engine",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-socket-relay",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-sta",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-telemetry-exporter",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-telemetry-traceback-application",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-telemetry-utils",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/doca-urom",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/dynamo-interconnect-check",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/earth2studio-create-datasource",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-003",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/earth2studio-create-diagnostic",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/earth2studio-create-prognostic",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/earth2studio-data-fetch",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/earth2studio-deterministic-forecast",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/earth2studio-discover",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/earth2studio-install",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/ethos-explore",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/ethos-orchestrate",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/ethos-write",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-003",
+        "AMT-INJECT-010"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/fastgen-add-method",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/fastgen-add-modality",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/fastgen-add-network",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/fastgen-configure",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/fastgen-inference",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/fastgen-runtime",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/fastgen-setup",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/fastgen-train",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/foundationpose-setup",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/holoscan-app-debug-build-run",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/holoscan-install-conda",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/holoscan-install-debian",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/holoscan-module-lifecycle",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-SUPPLY-001",
+        "AMT-SUPPLY-002",
+        "AMT-SUPPLY-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/holoscan-setup",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/hsb-flash",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/hsb-ip-def",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/hsb-ip-packetizer",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/hsb-setup",
+      "verdict": "block",
+      "rules": [
+        "AMT-CRED-001",
+        "AMT-EVADE-007",
+        "AMT-INJECT-003",
+        "AMT-PERSIST-001"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/hsb-test",
+      "verdict": "block",
+      "rules": [
+        "AMT-EVADE-007",
+        "AMT-INJECT-003"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/i4h-lerobot-viz",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/i4h-workflow-create",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/i4h-workflow-dataset-annotate",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/i4h-workflow-dataset-convert",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/i4h-workflow-dataset-mimic",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/i4h-workflow-dataset-replay",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/i4h-workflow-dataset-teleop",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    },
+    {
+      "id": "NVIDIA/skills:skills/i4h-workflow-scene-edit",
+      "verdict": "review",
+      "rules": [
+        "AMT-EVADE-007"
+      ]
+    }
+  ],
+  "missed_categories": [],
+  "errors": []
+}
